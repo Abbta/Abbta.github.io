@@ -36,13 +36,15 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 500px;
+    z-index: 2;
 }
-.graph-container{
+.graph-container {
     width: 1px;
     height: 1px;
     position: sticky;
     top: 50%;
     left: 50%;
+    z-index: -10;
 }
 .graph{
     position: relative;
