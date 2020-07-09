@@ -15,6 +15,13 @@
 .page-button {
     float: right;
     padding: 3px;
+    padding-right: 18px;
+    text-decoration: none;
+    font-size: 24px;
+    color: black;
+}
+.page-button:hover{
+    color: gray;
 }
 .content{
     max-width: 1000px;
