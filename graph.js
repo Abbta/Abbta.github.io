@@ -1,6 +1,7 @@
 var yValues = [
 -0.02, 0.045, -0.004, -0.01, -0.03, -0.02, -0.06, -0.03, -0.003, -0.01, 0, -0.02, -0.07, -0.02, -0.04, -0.04, -0.03, -0.04, -0.085, -0.014, -0.011, 0.03, -0.05, 0, -0.02
 ]
+var dataMargin = 0.05;
 var yDistance = 0.35
 var yMin = -0.2;
 var xMin = 26;
@@ -14,6 +15,14 @@ document.body.onload = function () {
         circle.setAttributeNS(null, "r", 2);
         circle.setAttributeNS(null, "fill", "red");
         svg.appendChild(circle);
+
+        var vertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        vertical.setAttributeNS(null, "x1", xScale(svg, i));
+        vertical.setAttributeNS(null, "x2", xScale(svg, i));
+        vertical.setAttributeNS(null, "y1", xScale(svg, yValues[i] + dataMargin));
+        vertical.setAttributeNS(null, "y2", xScale(svg, yValues[i] - dataMargin));
+        vertical.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
+        svg.appendChild(vertical);
     }
 }
 
