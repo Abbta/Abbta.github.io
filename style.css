@@ -46,7 +46,7 @@
     margin-bottom: 500px;
     z-index: 2;
 }
-.graph-container {
+.graph-placeholder {
     width: 1px;
     height: 1px;
     position: sticky;
@@ -54,11 +54,32 @@
     left: 50%;
     z-index: -10;
 }
-.graph{
+.graph-container {
+    display: flex;
     position: relative;
     bottom: 350px;
     right: 350px;
     width: 700px;
-    height: 700px;
-    background-color: green;
+    height: 495px;
+    background-color: white;
+}
+.graph-left{
+    width: 50px;
+}
+.graph-right{
+    width: 50px;
+}
+.graph-middle{
+    display: flex;
+    flex-direction: column;
+}
+.graph-middle-top{
+    height: 70px;
+}
+.graph-middle-bot{
+    height: 70px;
+}
+.graph{
+    width: 100%;
+    height: 100%;
 }
