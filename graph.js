@@ -1,17 +1,32 @@
-var yValues = [
+const yValues = [
 -0.02, 0.045, -0.004, -0.01, -0.03, -0.02, -0.06, -0.03, -0.003, -0.01, 0, -0.02, -0.07, -0.02, -0.04, -0.04, -0.03, -0.04, -0.085, -0.014, -0.011, 0.03, -0.05, 0, -0.02
 ]
-var backgroundYValues = [0.15, 0.1, 0.05, -0.05, -0.1, -.15]
-var horisLength = 0.3;
-var dataMargin = 0.05;
-var yDistance = 0.35
-var yMin = -0.2;
-var xMin = 0;
+const initValuesFromTo = [11, yValues.length - 1];
+const backgroundYValues = [0.15, 0.1, 0.05, -0.05, -0.1, -.15]
+const horisLength = 0.3;
+const dataMargin = 0.05;
+const yDistance = 0.35
+const yMin = -0.2;
+const xMin = 0;
 
 document.body.onload = function () {
-    var svg = document.getElementById("graph");
+    const svg = document.getElementById("graph");
     initBackground(svg);
     initData(svg);
+}
+
+window.onscroll = function () {
+    if (typeof this.graphState == "undefinfed")
+        this.graphState = 0;
+
+    const graph = document.getElementById("graph");
+    const graph_overlay_texts = document.getElementsByClassName("graph-overlay-text");
+    if (graph_overlay_texts[this.graphState].scrollTop < graph.scrollTop + graph.offsetHeight / 2)
+    {
+        //if text to transition between current and next state is above marker 
+        addToGraph(i);
+    }
+
 }
 
 function yScale(elem, yValue) {
@@ -25,7 +40,7 @@ function xScale(element, xValue) {
 }
 
 function initData(svg) {
-    for (var i = 0; i < yValues.length; i++) {
+    for (var i = initValuesFromTo[0]; i <= initValuesFromTo[1]; i++) {
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         circle.setAttributeNS(null, "cx", xScale(svg, i));
         circle.setAttributeNS(null, "cy", yScale(svg, yValues[i]));
