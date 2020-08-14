@@ -8,23 +8,29 @@ const dataMargin = 0.05;
 const yDistance = 0.35
 const yMin = -0.2;
 const xMin = 0;
+const graphStateArray = [
+    [11, yValues.length - 1],
+    [0, 10],
+    [null]
+]
 
 document.body.onload = function () {
     const svg = document.getElementById("graph");
     initBackground(svg);
-    initData(svg);
+    addToGraph(svg, 0);
 }
 
+var g_graphState = 1;
 window.onscroll = function () {
-    if (typeof this.graphState == "undefinfed")
-        this.graphState = 0;
-
-    const graph = document.getElementById("graph");
+    const svg = document.getElementById("graph");
+    const graphHolder = document.getElementById("graph-placeholder");
     const graph_overlay_texts = document.getElementsByClassName("graph-overlay-text");
-    if (graph_overlay_texts[this.graphState].scrollTop < graph.scrollTop + graph.offsetHeight / 2)
+    this.console.log(graph_overlay_texts[g_graphState-1].offsetTop , graphHolder.offsetTop)
+    if (graph_overlay_texts[g_graphState-1].offsetTop < graphHolder.offsetTop)
     {
         //if text to transition between current and next state is above marker 
-        addToGraph(i);
+        addToGraph(svg, g_graphState);
+        g_graphState++;
     }
 
 }
@@ -39,38 +45,40 @@ function xScale(element, xValue) {
     return Math.abs(xValue - xMin) * scalar + 5;
 }
 
-function initData(svg) {
-    for (var i = initValuesFromTo[0]; i <= initValuesFromTo[1]; i++) {
-        var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttributeNS(null, "cx", xScale(svg, i));
-        circle.setAttributeNS(null, "cy", yScale(svg, yValues[i]));
-        circle.setAttributeNS(null, "r", 5);
-        circle.setAttributeNS(null, "fill", "red");
-        svg.appendChild(circle);
+function addToGraph(svg, graphState) {
+    if (graphState < 2) {
+        for (var i = graphStateArray[graphState][0]; i <= graphStateArray[graphState][1]; i++) {
+            var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circle.setAttributeNS(null, "cx", xScale(svg, i));
+            circle.setAttributeNS(null, "cy", yScale(svg, yValues[i]));
+            circle.setAttributeNS(null, "r", 5);
+            circle.setAttributeNS(null, "fill", "red");
+            svg.appendChild(circle);
 
-        var vertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        vertical.setAttributeNS(null, "x1", xScale(svg, i));
-        vertical.setAttributeNS(null, "x2", xScale(svg, i));
-        vertical.setAttributeNS(null, "y1", yScale(svg, yValues[i] + dataMargin));
-        vertical.setAttributeNS(null, "y2", yScale(svg, yValues[i] - dataMargin));
-        vertical.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
-        svg.appendChild(vertical);
+            var vertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            vertical.setAttributeNS(null, "x1", xScale(svg, i));
+            vertical.setAttributeNS(null, "x2", xScale(svg, i));
+            vertical.setAttributeNS(null, "y1", yScale(svg, yValues[i] + dataMargin));
+            vertical.setAttributeNS(null, "y2", yScale(svg, yValues[i] - dataMargin));
+            vertical.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
+            svg.appendChild(vertical);
 
-        var horisontalTop = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        horisontalTop.setAttributeNS(null, "x1", xScale(svg, i - horisLength));
-        horisontalTop.setAttributeNS(null, "x2", xScale(svg, i + horisLength));
-        horisontalTop.setAttributeNS(null, "y1", yScale(svg, yValues[i] - dataMargin));
-        horisontalTop.setAttributeNS(null, "y2", yScale(svg, yValues[i] - dataMargin));
-        horisontalTop.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
-        svg.appendChild(horisontalTop);
+            var horisontalTop = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            horisontalTop.setAttributeNS(null, "x1", xScale(svg, i - horisLength));
+            horisontalTop.setAttributeNS(null, "x2", xScale(svg, i + horisLength));
+            horisontalTop.setAttributeNS(null, "y1", yScale(svg, yValues[i] - dataMargin));
+            horisontalTop.setAttributeNS(null, "y2", yScale(svg, yValues[i] - dataMargin));
+            horisontalTop.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
+            svg.appendChild(horisontalTop);
 
-        var horisontalBot = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        horisontalBot.setAttributeNS(null, "x1", xScale(svg, i - horisLength));
-        horisontalBot.setAttributeNS(null, "x2", xScale(svg, i + horisLength));
-        horisontalBot.setAttributeNS(null, "y1", yScale(svg, yValues[i] + dataMargin));
-        horisontalBot.setAttributeNS(null, "y2", yScale(svg, yValues[i] + dataMargin));
-        horisontalBot.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
-        svg.appendChild(horisontalBot);
+            var horisontalBot = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            horisontalBot.setAttributeNS(null, "x1", xScale(svg, i - horisLength));
+            horisontalBot.setAttributeNS(null, "x2", xScale(svg, i + horisLength));
+            horisontalBot.setAttributeNS(null, "y1", yScale(svg, yValues[i] + dataMargin));
+            horisontalBot.setAttributeNS(null, "y2", yScale(svg, yValues[i] + dataMargin));
+            horisontalBot.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
+            svg.appendChild(horisontalBot);
+        }
     }
 }
 
