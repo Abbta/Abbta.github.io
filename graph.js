@@ -15,20 +15,22 @@ const graphStateArray = [
 ]
 var svgElementsContainer = new Array; 
 const animationDelay = 50;
-const animationDuration = 500;
+const animationDuration = 300;
 const maxFrames = 15;
+
+var g_graphState = 0;
 
 document.body.onload = function () {
     const svg = document.getElementById("graph");
     initBackground(svg);
     initSvgElements(svg);
     addToGraph(document.getElementById("graph"), g_graphState);
+    g_graphState++;
 
     window.onscroll = function () {
         const svg = document.getElementById("graph");
         const graphHolder = document.getElementById("graph-placeholder");
         const graph_overlay_texts = document.getElementsByClassName("graph-overlay-text");
-        this.console.log(graph_overlay_texts[g_graphState - 1].offsetTop, graphHolder.offsetTop)
         if (graph_overlay_texts[g_graphState - 1].offsetTop < graphHolder.offsetTop) {
             //if text to transition between current and next state is above marker 
             addToGraph(svg, g_graphState);
@@ -37,9 +39,6 @@ document.body.onload = function () {
 
     }
 }
-
-var g_graphState = 1;
-
 
 
 function yScale(elem, yValue) {
@@ -53,17 +52,14 @@ function xScale(element, xValue) {
 }
 
 function addToGraph(svg, graphState) {
-    if (typeof addToGraph.a == "undefined")
+    console.log(graphState);
+    if (graphState < 2)
     {
-        console.log(svgElementsContainer);
-        if (graphState < 2) {
-            for (let i = 0; i < yValues.length; i++) {
-                setTimeout(animateCircleIn, animationDelay * i, svgElementsContainer[i].circle);
-                setTimeout(animateVerticalIn, animationDelay * i, svgElementsContainer[i].vertical, svg, yValues[i]);
-                setTimeout(animateHorisontalIn, animationDelay * i + animationDuration, svgElementsContainer[i].horisontalTop, svgElementsContainer[i].horisontalBot, svg, i);
-            }
+        for (let i = graphStateArray[graphState][0]; i <= graphStateArray[graphState][1]; i++) {
+            setTimeout(animateCircleIn, animationDelay * i, svgElementsContainer[i].circle);
+            setTimeout(animateVerticalIn, animationDelay * i, svgElementsContainer[i].vertical, svg, yValues[i]);
+            setTimeout(animateHorisontalIn, animationDelay * i + animationDuration, svgElementsContainer[i].horisontalTop, svgElementsContainer[i].horisontalBot, svg, i);
         }
-        addToGraph.a = 0;
     }
 }
 
@@ -129,6 +125,7 @@ function initBackground(svg) {
 
 function animateCircleIn(circle)
 {
+    console.log(circle);
     let time = Date.now();
     var oStop = 1000;
     window.requestAnimationFrame(circleAnimation);
