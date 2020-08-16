@@ -3,11 +3,12 @@ const yValues = [
 ]
 const backgroundYValues = [0.15, 0.1, 0.05, -0.05, -0.1, -.15]
 const circleRadius = 5;
-const horisLength = 0.3;
+const horisLength = 0.6;
 const dataMargin = 0.05;
 const yDistance = 0.35
 const yMin = -0.2;
-const xMin = 0;
+const xMin = -1; //don't ask
+const graphPaddingX = 50;
 const graphStateArray = [
     [11, yValues.length - 1],
     [0, 10],
@@ -46,9 +47,10 @@ function yScale(elem, yValue) {
     return (-yValue - yMin) * scalar;
 }
 
-function xScale(element, xValue) {
-    var scalar = element.clientWidth / yValues.length;
-    return Math.abs(xValue - xMin) * scalar + 5;
+function xScale(element, xValue, withPadding = true) {
+    let padding = withPadding ? graphPaddingX : 5;
+    var scalar = (element.clientWidth - padding) / yValues.length;
+    return Math.abs(xValue - xMin) * scalar + padding / 2;
 }
 
 function addToGraph(svg, graphState) {
@@ -106,16 +108,16 @@ function initSvgElements(svg)
 
 function initBackground(svg) {
     var vertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    vertical.setAttributeNS(null, "x1", xScale(svg, 0));
-    vertical.setAttributeNS(null, "x2", xScale(svg, yValues.length));
+    vertical.setAttributeNS(null, "x1", xScale(svg, 0, false));
+    vertical.setAttributeNS(null, "x2", xScale(svg, yValues.length, false));
     vertical.setAttributeNS(null, "y1", yScale(svg, 0));
     vertical.setAttributeNS(null, "y2", yScale(svg, 0));
     vertical.setAttributeNS(null, "style", "stroke:rgb(0,0,0);stroke-width:3");
     svg.appendChild(vertical); 
     for (var i = 0; i < backgroundYValues.length; i++) {
         var vertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        vertical.setAttributeNS(null, "x1", xScale(svg, 0));
-        vertical.setAttributeNS(null, "x2", xScale(svg, yValues.length));
+        vertical.setAttributeNS(null, "x1", xScale(svg, 0, false));
+        vertical.setAttributeNS(null, "x2", xScale(svg, yValues.length, false));
         vertical.setAttributeNS(null, "y1", yScale(svg, backgroundYValues[i]));
         vertical.setAttributeNS(null, "y2", yScale(svg, backgroundYValues[i]));
         vertical.setAttributeNS(null, "style", "stroke:rgb(150,150,150);stroke-width:2");
@@ -125,7 +127,6 @@ function initBackground(svg) {
 
 function animateCircleIn(circle)
 {
-    console.log(circle);
     let time = Date.now();
     var oStop = 1000;
     window.requestAnimationFrame(circleAnimation);
@@ -189,7 +190,7 @@ function animateHorisontalIn(top, bot, svg, center)
     window.requestAnimationFrame(horisontalAnimation);
     function horisontalAnimation()
     {
-        let waitTo = time + (animationDuration / (xScale(horisLength / 2)));
+        let waitTo = time + (animationDuration / (xScale(svg, horisLength / 2)));
         top.setAttributeNS(null, "x1", parseInt(top.getAttributeNS(null, "x1")) - 1);
         top.setAttributeNS(null, "x2", parseInt(top.getAttributeNS(null, "x2")) + 1);
         bot.setAttributeNS(null, "x1", parseInt(bot.getAttributeNS(null, "x1")) - 1);
@@ -201,7 +202,8 @@ function animateHorisontalIn(top, bot, svg, center)
             stop--;
         }
         oStop--;
-        if ((top.getAttributeNS(null, "x1") > xScale(svg, center - horisLength / 2)) && (oStop > 0))
+        console.log(top.getAttributeNS(null, "x1"), xScale(svg, center - horisLength / 2, true));
+        if ((top.getAttributeNS(null, "x1") > xScale(svg, (center - horisLength / 2), true)) && (oStop > 0))
         {
             window.requestAnimationFrame(horisontalAnimation);
         }
