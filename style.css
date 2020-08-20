@@ -2,33 +2,80 @@ body{
     width: 100%;
     margin: 0px;
 }
-.header-container{
+#header-container {
     background-color: #ffffff;
-    display: flex;
-    padding: 24px;
-    border-bottom: solid;
-    border-bottom-color: #5656ff;
-    position:fixed;
+    padding-top: 24px;
+    position: fixed;
     width: 100%;
     z-index: 100;
 }
-.author-name{
-    font-size: 24px;
+.header-container-before {
+    transition: all 0.1s ease-in 0.0s;
+    padding-bottom: 24px;
+}
+.header-container-after {
+    padding-bottom: 0px;
+    height: 31px;
+    transition: all 0.1s ease-in 0.1s;
+}
+#header-border {
+    position: fixed;
+    width: 100%;
+    height: 2px;
+    top: 80px;
+    z-index: 101;
+}
+#header-border-visible {
+    background-color: #5656ff;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    position: relative;
+}
+.header-border-before {
+    width: 300px;
+    top: 0px;
+    transition: width 0.3s ease, top 0.1s ease-in 0.0s;
+}
+.header-border-after {
+    width: 100%;
+    top: -25px;
+    transition: width 0.3s ease 0.0s, top 0.1s ease-in 0.1s;
+}
+#author-name {
     text-decoration: none;
     color: black;
-    flex: 1;
+    display: block;
+    transition: all 0.3s ease 0.0s;
+}
+.author-name-before {
+    font-size: 48px;
+    text-align: center;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.author-name-after {
+    font-size: 24px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
 }
 .pages-buttons{
-    float: right;
-    flex: 1;
+    position: absolute;
+    top: 0px;
+    right: 50px;
+    display: flex;
+    height: 100%;
 }
 .page-button {
-    float: right;
     padding: 3px;
     padding-right: 18px;
     text-decoration: none;
     font-size: 24px;
     color: black;
+    align-self: center;
 }
 .page-button:hover{
     color: gray;

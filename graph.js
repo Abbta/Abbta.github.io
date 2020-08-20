@@ -29,10 +29,11 @@ document.body.onload = function () {
     g_graphState++;
 
     window.onscroll = function () {
+        headerScroll();
         const svg = document.getElementById("graph");
         const graphHolder = document.getElementById("graph-placeholder");
         const graph_overlay_texts = document.getElementsByClassName("graph-overlay-text");
-        if (graph_overlay_texts[g_graphState - 1].offsetTop < graphHolder.offsetTop) {
+        if (graph_overlay_texts[g_graphState - 1].offsetTop < graphHolder.offsetTop - svg.scrollHeight / 2) {
             //if text to transition between current and next state is above marker 
             addToGraph(svg, g_graphState);
             g_graphState++;
@@ -54,7 +55,6 @@ function xScale(element, xValue, withPadding = true) {
 }
 
 function addToGraph(svg, graphState) {
-    console.log(graphState);
     if (graphState < 2)
     {
         for (let i = graphStateArray[graphState][0]; i <= graphStateArray[graphState][1]; i++) {
@@ -195,14 +195,11 @@ function animateHorisontalIn(top, bot, svg, center)
         top.setAttributeNS(null, "x2", parseInt(top.getAttributeNS(null, "x2")) + 1);
         bot.setAttributeNS(null, "x1", parseInt(bot.getAttributeNS(null, "x1")) - 1);
         bot.setAttributeNS(null, "x2", parseInt(bot.getAttributeNS(null, "x2")) + 1);
-        var stop = 1000;
         while ((time < waitTo) && (stop > 0))
         {
             time = Date.now();
-            stop--;
         }
         oStop--;
-        console.log(top.getAttributeNS(null, "x1"), xScale(svg, center - horisLength / 2, true));
         if ((top.getAttributeNS(null, "x1") > xScale(svg, (center - horisLength / 2), true)) && (oStop > 0))
         {
             window.requestAnimationFrame(horisontalAnimation);
