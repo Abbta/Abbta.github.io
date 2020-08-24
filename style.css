@@ -134,6 +134,7 @@ body{
 }
 #graph-container{
     display: flex;
+    flex-direction: column;
     position: relative;
     bottom: 350px;
     right: 350px;
@@ -141,16 +142,18 @@ body{
     height: 495px;
     background-color: white;
 }
-.graph-left{
+.#graph-left{
     width: 50px;
+    height: 100%;
 }
 .graph-right{
     width: 50px;
 }
 .graph-middle{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
+    height: 100%;
 }
 .graph-middle-top{
     height: 70px;
