@@ -10,7 +10,8 @@ const yMin = -0.17;
 const xMin = 0;
 const graphPaddingX = 50;
 const yAxisMarkerWidth = 15;
-const yAxisTextPadding = 10;
+const yAxisTextPadding = 17;
+const yAxisLetterWidth = 3;
 const graphStateArray = [
     [11, yValues.length - 1],
     [0, 10]
@@ -100,11 +101,17 @@ function initBackground(svg) {
 function initLeft(svg)
 {
     addLine(svg, svg.clientWidth, svg.clientWidth, 0, svg.scrollHeight, "rgb(0,0,0)", "2");
+    addText(svg, svg.clientWidth / 2, svg.scrollHeight / 2, true, "y axis text").classList.add("yAxisText");
     for (let i = 0; i < backgroundYValues.length; i++)
     {
         addLine(svg, svg.clientWidth - yAxisMarkerWidth, svg.clientWidth, yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(0,0,0)", "2");
-        addText(svg, svg.clientWidth - yAxisMarkerWidth - yAxisTextPadding, yScale(svg, backgroundYValues[i]), true, backgroundYValues[i].toString());
+        var text = addText(svg, svg.clientWidth - yAxisMarkerWidth - yAxisTextPadding, yScale(svg, backgroundYValues[i]), true, backgroundYValues[i].toString());
+        text.classList.add("yAxisMarker");
     }
+}
+
+function initBot(bot, svg)
+{
 }
 
 function animateCircleIn(circle)
@@ -210,8 +217,12 @@ function addText(svg, x, y, rotate = false, textString)
     var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttributeNS(null, "x", x);
     text.setAttributeNS(null, "y", y);
-    if (rotate)
-        text.setAttributeNS(null, "transform", "rotate(90," + x +"," +  y + ")");
     text.innerHTML = textString;
+    if (rotate)
+    {
+        text.setAttributeNS(null, "transform", "rotate(90," + (x + textString.length * yAxisLetterWidth).toString() + "," + y + ")");
+        text.setAttributeNS(null, "y", y + textString.length * yAxisLetterWidth);
+    }
     svg.appendChild(text);
+    return text;
 }

@@ -180,3 +180,11 @@ body{
     text-align: center;
     margin-top: 50px;
 }
+.yAxisMarker{
+    font-family: 'Nunito';
+    font-size: 14px;
+}
+.yAxisText {
+    font-family: 'Nunito';
+    font-size: 24px;
+}
