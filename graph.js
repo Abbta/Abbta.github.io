@@ -11,8 +11,7 @@ const xMin = -1; //don't ask
 const graphPaddingX = 50;
 const graphStateArray = [
     [11, yValues.length - 1],
-    [0, 10],
-    [null]
+    [0, 10]
 ]
 var svgElementsContainer = new Array; 
 const animationDelay = 50;

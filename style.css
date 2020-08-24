@@ -81,24 +81,21 @@ body{
     color: gray;
 }
 .content{
-    max-width: 1000px;
+    width: 65%;
     margin-left: auto;
     margin-right: auto;
 }
 .about-author{
-    padding-top: 70px;
+    padding-top: 90px;
     display: flex;
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 900px;
+    width: 100%;
 }
 .author-portrait{
-    margin-right: 50px;
-    width: 400px;
+    flex: 1;
 }
 .about-author-text {
-    width: 400px;
-    margin-left: auto;
+    flex: 2;
+    margin-left: 10px;
 }
 .image{
     width: 400px;
@@ -116,12 +113,11 @@ body{
 }
 .abstract-text{
     padding-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 700px;
 }
 .body-text{
     font-family: 'Noto Serif', serif;
+    text-align: justify;
+    line-height: 2.0;
     font-size: 20px;
     color: #353535;
     z-index: 2;
@@ -154,6 +150,7 @@ body{
 .graph-middle{
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 .graph-middle-top{
     height: 70px;
