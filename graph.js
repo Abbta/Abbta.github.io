@@ -18,7 +18,7 @@ const xAxisLetterWidth = 7;
 const xAxisDisplayIndices = [3, 7, 11, 15, 19, 23];
 const xAxisDisplayFirst = 24;
 const xAxisDisplayValuePerIndex = -2;
-const xAxisText = "x axis text";
+const xAxisText = "Age at parent's layoff";
 const graphStateArray = [
     [11, yValues.length - 1],
     [0, 10]

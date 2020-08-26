@@ -80,15 +80,40 @@ body{
 .page-button:hover{
     color: gray;
 }
-.content{
-    width: 65%;
-    margin-left: auto;
-    margin-right: auto;
+@media screen and (min-width: 920px) {
+    .content{ 
+        width: 65%; 
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @media screen and (min-width: 1200px){
+        .about-author{
+        padding-top: 90px;
+        display: flex;
+        width: 100%;
+        }
+    }
+    @media screen and (max-width: 1199px){
+        .about-author{
+        padding-top: 90px;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        }
+    }
 }
-.about-author{
+@media screen and (max-width: 919px){
+    .content { 
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .about-author{
     padding-top: 90px;
     display: flex;
     width: 100%;
+    flex-direction: column;
+    }
 }
 .author-portrait{
     flex: 1;
