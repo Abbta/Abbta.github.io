@@ -1,17 +1,24 @@
 const yValues = [
 -0.02, 0.045, -0.004, -0.01, -0.03, -0.02, -0.06, -0.03, -0.003, -0.01, 0, -0.02, -0.07, -0.02, -0.04, -0.04, -0.03, -0.04, -0.085, -0.014, -0.011, 0.03, -0.05, 0, -0.02
 ]
-const backgroundYValues = [0.15, 0.1, 0.05, 0, -0.05, -0.1, -.15]
+const backgroundYValues = [0.15, 0.1, 0.05, 0, -0.05, -0.1, -.15];
 const circleRadius = 5;
 const horisLength = 0.6;
 const dataMargin = 0.05;
 const yDistance = 0.35
 const yMin = -0.17;
-const xMin = 0;
 const graphPaddingX = 50;
 const yAxisMarkerWidth = 15;
 const yAxisTextPadding = 17;
 const yAxisLetterWidth = 3;
+const yAxisText = "y axis text";
+const xAxisMarkerHeight = yAxisMarkerWidth;
+const xAxisTextPadding = yAxisTextPadding;
+const xAxisLetterWidth = 7;
+const xAxisDisplayIndices = [3, 7, 11, 15, 19, 23];
+const xAxisDisplayFirst = 24;
+const xAxisDisplayValuePerIndex = -2;
+const xAxisText = "x axis text";
 const graphStateArray = [
     [11, yValues.length - 1],
     [0, 10]
@@ -26,8 +33,10 @@ var g_graphState = 0;
 document.body.onload = function () {
     const svg = document.getElementById("graph");
     const left = document.getElementById("graph-left");
+    const bot = document.getElementById("graph-bot");
     initBackground(svg);
     initLeft(left);
+    initBot(bot, svg);
     initSvgElements(svg);
     addToGraph(document.getElementById("graph"), g_graphState);
     g_graphState++;
@@ -55,7 +64,7 @@ function yScale(elem, yValue) {
 function xScale(element, xValue, withPadding = true) {
     let padding = withPadding ? graphPaddingX : 0;
     var scalar = (element.clientWidth - padding) / yValues.length;
-    return Math.abs(xValue - xMin) * scalar + padding / 2;
+    return Math.abs(xValue) * scalar + padding / 2;
 }
 
 function addToGraph(svg, graphState) {
@@ -101,7 +110,7 @@ function initBackground(svg) {
 function initLeft(svg)
 {
     addLine(svg, svg.clientWidth, svg.clientWidth, 0, svg.scrollHeight, "rgb(0,0,0)", "2");
-    addText(svg, svg.clientWidth / 2, svg.scrollHeight / 2, true, "y axis text").classList.add("yAxisText");
+    addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 2 + yAxisLetterWidth), svg.scrollHeight / 2, true, yAxisText).classList.add("yAxisText");
     for (let i = 0; i < backgroundYValues.length; i++)
     {
         addLine(svg, svg.clientWidth - yAxisMarkerWidth, svg.clientWidth, yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(0,0,0)", "2");
@@ -112,6 +121,21 @@ function initLeft(svg)
 
 function initBot(bot, svg)
 {
+    const marginLeft = bot.clientWidth - svg.clientWidth;
+    addLine(bot, marginLeft, bot.clientWidth, 0, 0, "rgb(0,0,0)", "2");
+    addText(
+        bot,
+        marginLeft + svg.clientWidth / 2 - xAxisText.length * xAxisLetterWidth / 2,
+        xAxisMarkerHeight + xAxisTextPadding * 2 + xAxisLetterWidth,
+        false,
+        xAxisText
+    ).classList.add("xAxisText");
+    for (let i = 0; i < xAxisDisplayIndices.length; i++)
+    {
+        addLine(bot, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft, 0, xAxisMarkerHeight, "rgb(0,0,0)", "2");
+        var text = addText(bot, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft - ((xAxisDisplayFirst + i* xAxisDisplayValuePerIndex).toString().length * xAxisLetterWidth / 2), xAxisMarkerHeight + xAxisTextPadding, false, xAxisDisplayFirst + i * xAxisDisplayValuePerIndex);
+        text.classList.add("xAxisMarker");
+    }
 }
 
 function animateCircleIn(circle)
