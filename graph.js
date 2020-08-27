@@ -10,7 +10,7 @@ const yMin = -0.17;
 const graphPaddingX = 50;
 const yAxisMarkerWidth = 15;
 const yAxisTextPadding = 17;
-const yAxisLetterWidth = 3;
+const yAxisLetterWidth = 5;
 const yAxisText = "y axis text";
 const xAxisMarkerHeight = yAxisMarkerWidth;
 const xAxisTextPadding = yAxisTextPadding;
@@ -109,8 +109,8 @@ function initBackground(svg) {
 
 function initLeft(svg)
 {
-    addLine(svg, svg.clientWidth, svg.clientWidth, 0, svg.scrollHeight, "rgb(0,0,0)", "2");
-    addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 2 + yAxisLetterWidth), svg.scrollHeight / 2, true, yAxisText).classList.add("yAxisText");
+    addLine(svg, svg.clientWidth, svg.clientWidth, 0, svg.scrollHeight, "rgb(0,0,0)", "3");
+    addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 3 + yAxisLetterWidth), svg.scrollHeight / 2, true, yAxisText).classList.add("yAxisText");
     for (let i = 0; i < backgroundYValues.length; i++)
     {
         addLine(svg, svg.clientWidth - yAxisMarkerWidth, svg.clientWidth, yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(0,0,0)", "2");
@@ -121,12 +121,12 @@ function initLeft(svg)
 
 function initBot(bot, svg)
 {
-    const marginLeft = bot.clientWidth - svg.clientWidth;
+    const marginLeft = bot.clientWidth - svg.clientWidth - 2; //2 is to make xAxis and yAxis connect
     addLine(bot, marginLeft, bot.clientWidth, 0, 0, "rgb(0,0,0)", "2");
     addText(
         bot,
         marginLeft + svg.clientWidth / 2 - xAxisText.length * xAxisLetterWidth / 2,
-        xAxisMarkerHeight + xAxisTextPadding * 2 + xAxisLetterWidth,
+        xAxisMarkerHeight + xAxisTextPadding * 3 + xAxisLetterWidth,
         false,
         xAxisText
     ).classList.add("xAxisText");

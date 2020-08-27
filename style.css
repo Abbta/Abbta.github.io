@@ -2,6 +2,11 @@ body{
     width: 100%;
     margin: 0px;
 }
+h2{
+    text-align: center;
+    font-family: 'Open Sans';
+    font-size: 28px;
+}
 #header-container {
     background-color: #ffffff;
     padding-top: 24px;
@@ -161,19 +166,19 @@ body{
     display: flex;
     flex-direction: column;
     position: relative;
-    bottom: 295px;
+    bottom: 255px;
     right: 350px;
     width: 700px;
     height: 495px;
     background-color: white;
 }
 #graph-left{
-    width: 130px;
+    width: 100px;
     height: 100%;
 }
 #graph-bot{
     width: 100%;
-    height: 80px;
+    height: 150px;
 }
 .graph-right{
     width: 50px;
@@ -186,9 +191,7 @@ body{
 }
 .graph-middle-top{
     height: 70px;
-}
-.graph-middle-bot{
-    height: 70px;
+    margin-left: 100px; 
 }
 .graph{
     width: 100%;
@@ -210,18 +213,18 @@ body{
     margin-top: 50px;
 }
 .yAxisMarker{
-    font-family: 'Nunito';
+    font-family: 'Open Sans';
     font-size: 14px;
 }
 .yAxisText{
-    font-family: 'Nunito';
+    font-family: 'Open Sans';
     font-size: 24px;
 }
 .xAxisMarker{
-    font-family: 'Nunito';
+    font-family: 'Open Sans';
     font-size: 14px;
 }
 .xAxisText{
-    font-family: 'Nunito';
+    font-family: 'Open Sans';
     font-size: 24px;
 }
