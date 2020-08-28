@@ -10,7 +10,7 @@ const yMin = -0.17;
 const graphPaddingX = 50;
 const yAxisMarkerWidth = 15;
 const yAxisTextPadding = 17;
-const yAxisLetterWidth = 5;
+const yAxisLetterWidth = 4;
 const yAxisText = "y axis text";
 const xAxisMarkerHeight = yAxisMarkerWidth;
 const xAxisTextPadding = yAxisTextPadding;
@@ -70,6 +70,10 @@ function xScale(element, xValue, withPadding = true) {
 function addToGraph(svg, graphState) {
     if (graphState < 2)
     {
+        if (graphState == 1)
+        {
+            svgElementsContainer[0].rect.setAttributeNS(null, "fill", "#dedede66")
+        }
         for (let i = graphStateArray[graphState][0]; i <= graphStateArray[graphState][1]; i++) {
             setTimeout(animateCircleIn, animationDelay * i, svgElementsContainer[i].circle);
             setTimeout(animateVerticalIn, animationDelay * i, svgElementsContainer[i].vertical, svg, yValues[i]);
@@ -80,6 +84,8 @@ function addToGraph(svg, graphState) {
 
 function initSvgElements(svg)
 {
+    svgElementsContainer.push(new Object);
+    svgElementsContainer[0].rect = addGreyBox(svg, graphStateArray[1][1]);
     for (var i = 0; i < yValues.length; i++) {
         svgElementsContainer.push(new Object);
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -249,4 +255,25 @@ function addText(svg, x, y, rotate = false, textString)
     }
     svg.appendChild(text);
     return text;
+}
+
+function addGreyBox(svg, toIndex)
+{
+    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttributeNS(null, "x", 0);
+    rect.setAttributeNS(null, "width", xScale(svg, toIndex, true));
+    rect.setAttributeNS(null, "y", 0);
+    rect.setAttributeNS(null, "height", svg.scrollHeight);
+    rect.setAttributeNS(null, "fill", "#dedede00");
+    svg.appendChild(rect);
+    return rect;
+}
+
+function addDashedLine(svg index)
+{
+    var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttributeNS(null, "x1", xScale(svg, index, true);
+    line.setAttributeNS(null, "x2", xScale(svg, index, true);
+    line.setAttributeNS(null, "y1", 0);
+    line
 }
