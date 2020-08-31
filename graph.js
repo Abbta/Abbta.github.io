@@ -74,10 +74,17 @@ function addToGraph(svg, graphState) {
             setTimeout(animateVerticalIn, animationDelay * i, svgElementsContainer[i].vertical, svg, yValues[i]);
             setTimeout(animateHorisontalIn, animationDelay * i + animationDuration, svgElementsContainer[i].horisontalTop, svgElementsContainer[i].horisontalBot, svg, i, i == 0 ? true : false);
         }
+        if (graphState == 1)
+        {
+            svgElementsContainer[0].rect.setAttributeNS(null, "fill", "dedede00");
+        }
     }
 }
 
-function initSvgElements(svg) {
+function initSvgElements(svg)
+{
+    svgElementsContainer.push(new Object);
+    svgElementsContainer[0].rect = addBackgroundRect(svg, graphStateArray[1][1]);
     for (var i = 0; i < yValues.length; i++) {
         svgElementsContainer.push(new Object);
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -224,4 +231,16 @@ function addText(svg, x, y, rotate = false, textString) {
     }
     svg.appendChild(text);
     return text;
+}
+
+function addBackgroundRect(svg, index)
+{
+    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttributeNS(null, "x", 0);
+    rect.setAttributeNS(null, "y", 0);
+    rect.setAttributeNS(null, "width", xScale(svg, index, true));
+    rect.setAttributeNS(null, "height", svg.scrollHeight);
+    rect.setAttributeNS(null, "fill", "#dedede00");
+    svg.appendChild(rect);
+    return rect;
 }
