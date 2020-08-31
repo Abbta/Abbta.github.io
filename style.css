@@ -1,12 +1,8 @@
-body{
+body {
     width: 100%;
     margin: 0px;
 }
-h2{
-    text-align: center;
-    font-family: 'Open Sans';
-    font-size: 28px;
-}
+
 #header-container {
     background-color: #ffffff;
     padding-top: 24px;
@@ -14,15 +10,18 @@ h2{
     width: 100%;
     z-index: 100;
 }
+
 .header-container-before {
     transition: all 0.1s ease-in 0.0s;
     padding-bottom: 24px;
 }
+
 .header-container-after {
     padding-bottom: 0px;
     height: 31px;
     transition: all 0.1s ease-in 0.1s;
 }
+
 #header-border {
     position: fixed;
     width: 100%;
@@ -30,6 +29,7 @@ h2{
     top: 80px;
     z-index: 101;
 }
+
 #header-border-visible {
     background-color: #5656ff;
     margin-left: auto;
@@ -37,22 +37,26 @@ h2{
     height: 100%;
     position: relative;
 }
+
 .header-border-before {
     width: 300px;
     top: 0px;
     transition: width 0.3s ease, top 0.1s ease-in 0.0s;
 }
+
 .header-border-after {
     width: 100%;
     top: -25px;
     transition: width 0.3s ease 0.0s, top 0.1s ease-in 0.1s;
 }
+
 #author-name {
     text-decoration: none;
     color: black;
     display: block;
     transition: all 0.3s ease 0.0s;
 }
+
 .author-name-before {
     font-size: 48px;
     text-align: center;
@@ -60,6 +64,7 @@ h2{
     margin-left: auto;
     margin-right: auto;
 }
+
 .author-name-after {
     font-size: 24px;
     width: 100%;
@@ -67,13 +72,15 @@ h2{
     margin-right: auto;
     text-align: left;
 }
-.pages-buttons{
+
+.pages-buttons {
     position: absolute;
     top: 0px;
     right: 50px;
     display: flex;
     height: 100%;
 }
+
 .page-button {
     padding: 3px;
     padding-right: 18px;
@@ -82,69 +89,83 @@ h2{
     color: black;
     align-self: center;
 }
-.page-button:hover{
-    color: gray;
-}
+
+    .page-button:hover {
+        color: gray;
+    }
+
 @media screen and (min-width: 920px) {
-    .content{ 
-        width: 65%; 
+    .content {
+        width: 65%;
         margin-left: auto;
         margin-right: auto;
     }
-    @media screen and (min-width: 1200px){
-        .about-author{
-        padding-top: 90px;
-        display: flex;
-        width: 100%;
+
+    @media screen and (min-width: 1200px) {
+        .about-author {
+            padding-top: 90px;
+            display: flex;
+            width: 100%;
         }
     }
-    @media screen and (max-width: 1199px){
-        .about-author{
-        padding-top: 90px;
-        display: flex;
-        width: 100%;
-        flex-direction: column;
+
+    @media screen and (max-width: 1199px) {
+        .about-author {
+            padding-top: 90px;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
         }
     }
 }
-@media screen and (max-width: 919px){
-    .content { 
+
+@media screen and (max-width: 919px) {
+    .content {
         width: 90%;
         margin-left: auto;
         margin-right: auto;
     }
-    .about-author{
-    padding-top: 90px;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+
+    .about-author {
+        padding-top: 90px;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
     }
 }
-.author-portrait{
+
+.author-portrait {
     flex: 1;
 }
+
 .about-author-text {
     flex: 2;
     margin-left: 10px;
 }
-.image{
+
+.image {
     width: 400px;
 }
-.abstract{
+
+.abstract {
     margin-top: 150px;
 }
-.title{
+
+.title {
     font-family: 'Open Sans', sans-serif;
     font-size: 43px;
     text-align: center;
 }
-.subtitle{
+
+.subtitle {
     font-size: 34px;
 }
-.abstract-text{
+
+.abstract-text {
     padding-top: 20px;
 }
-.body-text{
+
+.body-text {
     font-family: 'Noto Serif', serif;
     text-align: justify;
     line-height: 2.0;
@@ -152,7 +173,8 @@ h2{
     color: #353535;
     z-index: 2;
 }
-#graph-placeholder{
+
+#graph-placeholder {
     margin-top: 500px;
     width: 1px;
     height: 1px;
@@ -162,69 +184,86 @@ h2{
     z-index: -10;
     margin-bottom: 400px;
 }
-#graph-container{
+
+#graph-container {
     display: flex;
     flex-direction: column;
     position: relative;
-    bottom: 255px;
+    bottom: 295px;
     right: 350px;
     width: 700px;
     height: 495px;
     background-color: white;
 }
-#graph-left{
-    width: 100px;
+
+#graph-left {
+    width: 130px;
     height: 100%;
 }
-#graph-bot{
+
+#graph-bot {
     width: 100%;
-    height: 150px;
+    height: 80px;
 }
-.graph-right{
+
+.graph-right {
     width: 50px;
 }
-.graph-middle{
+
+.graph-middle {
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 100%;
 }
-.graph-middle-top{
+
+.graph-middle-top {
     height: 70px;
-    margin-left: 100px; 
 }
-.graph{
+
+.graph-middle-bot {
+    height: 70px;
+}
+
+.graph {
     width: 100%;
     height: 100%;
 }
-.graph-overlay-text{
+
+.graph-overlay-text {
     width: 700px;
     background-color: white;
     z-index: 50;
     margin-left: auto;
     margin-right: auto;
 }
-.graph-text-divider{
+
+.graph-text-divider {
     padding: 300px;
 }
-.paper-link{
+
+.paper-link {
     display: block;
     text-align: center;
     margin-top: 50px;
 }
-.yAxisMarker{
-    font-family: 'Open Sans';
+
+.yAxisMarker {
+    font-family: 'Nunito';
     font-size: 14px;
 }
-.yAxisText{
-    font-family: 'Open Sans';
+
+.yAxisText {
+    font-family: 'Nunito';
     font-size: 24px;
 }
-.xAxisMarker{
-    font-family: 'Open Sans';
+
+.xAxisMarker {
+    font-family: 'Nunito';
     font-size: 14px;
 }
-.xAxisText{
-    font-family: 'Open Sans';
+
+.xAxisText {
+    font-family: 'Nunito';
     font-size: 24px;
 }
