@@ -1,5 +1,5 @@
 const yValues = [
--0.02, 0.045, -0.004, -0.01, -0.03, -0.02, -0.06, -0.03, -0.003, -0.01, 0, -0.02, -0.07, -0.02, -0.04, -0.04, -0.03, -0.04, -0.085, -0.014, -0.011, 0.03, -0.05, 0, -0.02
+    -0.02, 0.045, -0.004, -0.01, -0.03, -0.02, -0.06, -0.03, -0.003, -0.01, 0, -0.02, -0.07, -0.02, -0.04, -0.04, -0.03, -0.04, -0.085, -0.014, -0.011, 0.03, -0.05, 0, -0.02
 ]
 const backgroundYValues = [0.15, 0.1, 0.05, 0, -0.05, -0.1, -.15];
 const circleRadius = 5;
@@ -10,7 +10,7 @@ const yMin = -0.17;
 const graphPaddingX = 50;
 const yAxisMarkerWidth = 15;
 const yAxisTextPadding = 17;
-const yAxisLetterWidth = 4;
+const yAxisLetterWidth = 3;
 const yAxisText = "y axis text";
 const xAxisMarkerHeight = yAxisMarkerWidth;
 const xAxisTextPadding = yAxisTextPadding;
@@ -23,7 +23,7 @@ const graphStateArray = [
     [11, yValues.length - 1],
     [0, 10]
 ]
-var svgElementsContainer = new Array; 
+var svgElementsContainer = new Array;
 const animationDelay = 50;
 const animationDuration = 300;
 const maxFrames = 15;
@@ -68,12 +68,7 @@ function xScale(element, xValue, withPadding = true) {
 }
 
 function addToGraph(svg, graphState) {
-    if (graphState < 2)
-    {
-        if (graphState == 1)
-        {
-            svgElementsContainer[0].rect.setAttributeNS(null, "fill", "#dedede66")
-        }
+    if (graphState < 2) {
         for (let i = graphStateArray[graphState][0]; i <= graphStateArray[graphState][1]; i++) {
             setTimeout(animateCircleIn, animationDelay * i, svgElementsContainer[i].circle);
             setTimeout(animateVerticalIn, animationDelay * i, svgElementsContainer[i].vertical, svg, yValues[i]);
@@ -82,10 +77,7 @@ function addToGraph(svg, graphState) {
     }
 }
 
-function initSvgElements(svg)
-{
-    svgElementsContainer.push(new Object);
-    svgElementsContainer[0].rect = addGreyBox(svg, graphStateArray[1][1]);
+function initSvgElements(svg) {
     for (var i = 0; i < yValues.length; i++) {
         svgElementsContainer.push(new Object);
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -104,83 +96,69 @@ function initSvgElements(svg)
 
 function initBackground(svg) {
     addLine(svg, xScale(svg, 0, false), xScale(svg, yValues.length, false), yScale(svg, 0), yScale(svg, 0), "rgb(0,0,0)", "2");
-    for (var i = 0; i < backgroundYValues.length; i++)
-    {
-        if (backgroundYValues[i] != 0)
-        {
+    for (var i = 0; i < backgroundYValues.length; i++) {
+        if (backgroundYValues[i] != 0) {
             addLine(svg, xScale(svg, 0, false), xScale(svg, yValues.length, false), yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(150, 150, 150)", "1");
         }
     }
 }
 
-function initLeft(svg)
-{
-    addLine(svg, svg.clientWidth, svg.clientWidth, 0, svg.scrollHeight, "rgb(0,0,0)", "3");
-    addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 3 + yAxisLetterWidth), svg.scrollHeight / 2, true, yAxisText).classList.add("yAxisText");
-    for (let i = 0; i < backgroundYValues.length; i++)
-    {
+function initLeft(svg) {
+    addLine(svg, svg.clientWidth, svg.clientWidth, 0, svg.scrollHeight, "rgb(0,0,0)", "2");
+    addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 2 + yAxisLetterWidth), svg.scrollHeight / 2, true, yAxisText).classList.add("yAxisText");
+    for (let i = 0; i < backgroundYValues.length; i++) {
         addLine(svg, svg.clientWidth - yAxisMarkerWidth, svg.clientWidth, yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(0,0,0)", "2");
         var text = addText(svg, svg.clientWidth - yAxisMarkerWidth - yAxisTextPadding, yScale(svg, backgroundYValues[i]), true, backgroundYValues[i].toString());
         text.classList.add("yAxisMarker");
     }
 }
 
-function initBot(bot, svg)
-{
-    const marginLeft = bot.clientWidth - svg.clientWidth - 2; //2 is to make xAxis and yAxis connect
+function initBot(bot, svg) {
+    const marginLeft = bot.clientWidth - svg.clientWidth;
     addLine(bot, marginLeft, bot.clientWidth, 0, 0, "rgb(0,0,0)", "2");
     addText(
         bot,
         marginLeft + svg.clientWidth / 2 - xAxisText.length * xAxisLetterWidth / 2,
-        xAxisMarkerHeight + xAxisTextPadding * 3 + xAxisLetterWidth,
+        xAxisMarkerHeight + xAxisTextPadding * 2 + xAxisLetterWidth,
         false,
         xAxisText
     ).classList.add("xAxisText");
-    for (let i = 0; i < xAxisDisplayIndices.length; i++)
-    {
+    for (let i = 0; i < xAxisDisplayIndices.length; i++) {
         addLine(bot, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft, 0, xAxisMarkerHeight, "rgb(0,0,0)", "2");
-        var text = addText(bot, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft - ((xAxisDisplayFirst + i* xAxisDisplayValuePerIndex).toString().length * xAxisLetterWidth / 2), xAxisMarkerHeight + xAxisTextPadding, false, xAxisDisplayFirst + i * xAxisDisplayValuePerIndex);
+        var text = addText(bot, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft - ((xAxisDisplayFirst + i * xAxisDisplayValuePerIndex).toString().length * xAxisLetterWidth / 2), xAxisMarkerHeight + xAxisTextPadding, false, xAxisDisplayFirst + i * xAxisDisplayValuePerIndex);
         text.classList.add("xAxisMarker");
     }
 }
 
-function animateCircleIn(circle)
-{
+function animateCircleIn(circle) {
     let time = Date.now();
     var oStop = 1000;
     window.requestAnimationFrame(circleAnimation);
-    function circleAnimation()
-    {
+    function circleAnimation() {
         let waitTo = time + (animationDuration / circleRadius);
         circle.setAttributeNS(null, "r", parseInt(circle.getAttributeNS(null, "r")) + 1);
-        while (time < waitTo)
-        {
+        while (time < waitTo) {
             time = Date.now();
         }
         oStop--;
-        if ((parseInt(circle.getAttributeNS(null, "r")) < circleRadius) && (oStop > 0))
-        {
+        if ((parseInt(circle.getAttributeNS(null, "r")) < circleRadius) && (oStop > 0)) {
             window.requestAnimationFrame(circleAnimation);
         }
     }
 }
 
-function animateVerticalIn(vertical, svg, center)
-{
+function animateVerticalIn(vertical, svg, center) {
     let time = Date.now();
     var oStop = 1000;
     window.requestAnimationFrame(verticalAnimation);
-    function verticalAnimation()
-    {
+    function verticalAnimation() {
         let waitTo;
         let pixelsByFrame;
-        if (yScale(svg, dataMargin) < maxFrames)
-        {
+        if (yScale(svg, dataMargin) < maxFrames) {
             waitTo = time + (animationDuration / yScale(svg, dataMargin));
             pixelsByFrame = 1;
         }
-        else
-        {
+        else {
             waitTo = time + (animationDuration / maxFrames)
             pixelsByFrame = yScale(svg, dataMargin) / maxFrames;
         }
@@ -190,32 +168,27 @@ function animateVerticalIn(vertical, svg, center)
             time = Date.now();
         }
         oStop--;
-        if ((parseInt(vertical.getAttributeNS(null, "y1")) > yScale(svg, center + dataMargin)) && (oStop > 0))
-        {
+        if ((parseInt(vertical.getAttributeNS(null, "y1")) > yScale(svg, center + dataMargin)) && (oStop > 0)) {
             window.requestAnimationFrame(verticalAnimation);
         }
-        else
-        {
+        else {
             vertical.setAttributeNS(null, "y1", yScale(svg, center + dataMargin));
             vertical.setAttributeNS(null, "y2", yScale(svg, center - dataMargin));
         }
     }
 }
 
-function animateHorisontalIn(top, bot, svg, center, isFirst = false)
-{
+function animateHorisontalIn(top, bot, svg, center, isFirst = false) {
     let time = Date.now();
     var oStop = 1000;
     window.requestAnimationFrame(horisontalAnimation);
-    function horisontalAnimation()
-    {
+    function horisontalAnimation() {
         let waitTo = time + (animationDuration / (xScale(svg, horisLength / 2)));
         top.setAttributeNS(null, "x1", parseInt(top.getAttributeNS(null, "x1")) - 1);
         top.setAttributeNS(null, "x2", parseInt(top.getAttributeNS(null, "x2")) + 1);
         bot.setAttributeNS(null, "x1", parseInt(bot.getAttributeNS(null, "x1")) - 1);
         bot.setAttributeNS(null, "x2", parseInt(bot.getAttributeNS(null, "x2")) + 1);
-        while ((time < waitTo) && (stop > 0))
-        {
+        while ((time < waitTo) && (stop > 0)) {
             time = Date.now();
         }
         oStop--;
@@ -223,57 +196,32 @@ function animateHorisontalIn(top, bot, svg, center, isFirst = false)
             (isFirst ?
                 graphPaddingX / 2 - xScale(svg, (center - horisLength / 2), false) :
                 xScale(svg, (center - horisLength / 2), true)))
-            && (oStop > 0))
-        {
+            && (oStop > 0)) {
             window.requestAnimationFrame(horisontalAnimation);
         }
     }
 }
 
-function addLine(svg, x1, x2, y1, y2, colour, width)
-{
+function addLine(svg, x1, x2, y1, y2, colour, width) {
     var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
     line.setAttributeNS(null, "x1", x1);
     line.setAttributeNS(null, "x2", x2);
     line.setAttributeNS(null, "y1", y1);
     line.setAttributeNS(null, "y2", y2);
     line.setAttributeNS(null, "style", "stroke:" + colour + ";stroke-width:" + width);
-    svg.appendChild(line); 
+    svg.appendChild(line);
     return line;
 }
 
-function addText(svg, x, y, rotate = false, textString)
-{
+function addText(svg, x, y, rotate = false, textString) {
     var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttributeNS(null, "x", x);
     text.setAttributeNS(null, "y", y);
     text.innerHTML = textString;
-    if (rotate)
-    {
+    if (rotate) {
         text.setAttributeNS(null, "transform", "rotate(90," + (x + textString.length * yAxisLetterWidth).toString() + "," + y + ")");
         text.setAttributeNS(null, "y", y + textString.length * yAxisLetterWidth);
     }
     svg.appendChild(text);
     return text;
-}
-
-function addGreyBox(svg, toIndex)
-{
-    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    rect.setAttributeNS(null, "x", 0);
-    rect.setAttributeNS(null, "width", xScale(svg, toIndex, true));
-    rect.setAttributeNS(null, "y", 0);
-    rect.setAttributeNS(null, "height", svg.scrollHeight);
-    rect.setAttributeNS(null, "fill", "#dedede00");
-    svg.appendChild(rect);
-    return rect;
-}
-
-function addDashedLine(svg index)
-{
-    var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttributeNS(null, "x1", xScale(svg, index, true);
-    line.setAttributeNS(null, "x2", xScale(svg, index, true);
-    line.setAttributeNS(null, "y1", 0);
-    line
 }
