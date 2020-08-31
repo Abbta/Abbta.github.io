@@ -2,6 +2,11 @@ body{
     width: 100%;
     margin: 0px;
 }
+h2{
+    text-align: center;
+    font-family: 'Open Sans';
+    font-size: 28px;
+}
 #header-container {
     background-color: #ffffff;
     padding-top: 24px;
@@ -80,25 +85,47 @@ body{
 .page-button:hover{
     color: gray;
 }
-.content{
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+@media screen and (min-width: 920px) {
+    .content{ 
+        width: 65%; 
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @media screen and (min-width: 1200px){
+        .about-author{
+        padding-top: 90px;
+        display: flex;
+        width: 100%;
+        }
+    }
+    @media screen and (max-width: 1199px){
+        .about-author{
+        padding-top: 90px;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        }
+    }
 }
-.about-author{
-    padding-top: 70px;
+@media screen and (max-width: 919px){
+    .content { 
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .about-author{
+    padding-top: 90px;
     display: flex;
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 900px;
+    width: 100%;
+    flex-direction: column;
+    }
 }
 .author-portrait{
-    margin-right: 50px;
-    width: 400px;
+    flex: 1;
 }
 .about-author-text {
-    width: 400px;
-    margin-left: auto;
+    flex: 2;
+    margin-left: 10px;
 }
 .image{
     width: 400px;
@@ -116,12 +143,11 @@ body{
 }
 .abstract-text{
     padding-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 700px;
 }
 .body-text{
     font-family: 'Noto Serif', serif;
+    text-align: justify;
+    line-height: 2.0;
     font-size: 20px;
     color: #353535;
     z-index: 2;
@@ -138,28 +164,34 @@ body{
 }
 #graph-container{
     display: flex;
+    flex-direction: column;
     position: relative;
-    bottom: 350px;
+    bottom: 255px;
     right: 350px;
     width: 700px;
     height: 495px;
     background-color: white;
 }
-.graph-left{
-    width: 50px;
+#graph-left{
+    width: 100px;
+    height: 100%;
+}
+#graph-bot{
+    width: 100%;
+    height: 150px;
 }
 .graph-right{
     width: 50px;
 }
 .graph-middle{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
 }
 .graph-middle-top{
     height: 70px;
-}
-.graph-middle-bot{
-    height: 70px;
+    margin-left: 100px; 
 }
 .graph{
     width: 100%;
@@ -179,4 +211,20 @@ body{
     display: block;
     text-align: center;
     margin-top: 50px;
+}
+.yAxisMarker{
+    font-family: 'Open Sans';
+    font-size: 14px;
+}
+.yAxisText{
+    font-family: 'Open Sans';
+    font-size: 24px;
+}
+.xAxisMarker{
+    font-family: 'Open Sans';
+    font-size: 14px;
+}
+.xAxisText{
+    font-family: 'Open Sans';
+    font-size: 24px;
 }

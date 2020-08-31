@@ -1,18 +1,27 @@
 const yValues = [
 -0.02, 0.045, -0.004, -0.01, -0.03, -0.02, -0.06, -0.03, -0.003, -0.01, 0, -0.02, -0.07, -0.02, -0.04, -0.04, -0.03, -0.04, -0.085, -0.014, -0.011, 0.03, -0.05, 0, -0.02
 ]
-const backgroundYValues = [0.15, 0.1, 0.05, -0.05, -0.1, -.15]
+const backgroundYValues = [0.15, 0.1, 0.05, 0, -0.05, -0.1, -.15];
 const circleRadius = 5;
 const horisLength = 0.6;
 const dataMargin = 0.05;
 const yDistance = 0.35
-const yMin = -0.2;
-const xMin = -1; //don't ask
+const yMin = -0.17;
 const graphPaddingX = 50;
+const yAxisMarkerWidth = 15;
+const yAxisTextPadding = 17;
+const yAxisLetterWidth = 4;
+const yAxisText = "y axis text";
+const xAxisMarkerHeight = yAxisMarkerWidth;
+const xAxisTextPadding = yAxisTextPadding;
+const xAxisLetterWidth = 7;
+const xAxisDisplayIndices = [3, 7, 11, 15, 19, 23];
+const xAxisDisplayFirst = 24;
+const xAxisDisplayValuePerIndex = -2;
+const xAxisText = "Age at parent's layoff";
 const graphStateArray = [
     [11, yValues.length - 1],
-    [0, 10],
-    [null]
+    [0, 10]
 ]
 var svgElementsContainer = new Array; 
 const animationDelay = 50;
@@ -23,7 +32,11 @@ var g_graphState = 0;
 
 document.body.onload = function () {
     const svg = document.getElementById("graph");
+    const left = document.getElementById("graph-left");
+    const bot = document.getElementById("graph-bot");
     initBackground(svg);
+    initLeft(left);
+    initBot(bot, svg);
     initSvgElements(svg);
     addToGraph(document.getElementById("graph"), g_graphState);
     g_graphState++;
@@ -49,24 +62,30 @@ function yScale(elem, yValue) {
 }
 
 function xScale(element, xValue, withPadding = true) {
-    let padding = withPadding ? graphPaddingX : 5;
+    let padding = withPadding ? graphPaddingX : 0;
     var scalar = (element.clientWidth - padding) / yValues.length;
-    return Math.abs(xValue - xMin) * scalar + padding / 2;
+    return Math.abs(xValue) * scalar + padding / 2;
 }
 
 function addToGraph(svg, graphState) {
     if (graphState < 2)
     {
+        if (graphState == 1)
+        {
+            svgElementsContainer[0].rect.setAttributeNS(null, "fill", "#dedede66")
+        }
         for (let i = graphStateArray[graphState][0]; i <= graphStateArray[graphState][1]; i++) {
             setTimeout(animateCircleIn, animationDelay * i, svgElementsContainer[i].circle);
             setTimeout(animateVerticalIn, animationDelay * i, svgElementsContainer[i].vertical, svg, yValues[i]);
-            setTimeout(animateHorisontalIn, animationDelay * i + animationDuration, svgElementsContainer[i].horisontalTop, svgElementsContainer[i].horisontalBot, svg, i);
+            setTimeout(animateHorisontalIn, animationDelay * i + animationDuration, svgElementsContainer[i].horisontalTop, svgElementsContainer[i].horisontalBot, svg, i, i == 0 ? true : false);
         }
     }
 }
 
 function initSvgElements(svg)
 {
+    svgElementsContainer.push(new Object);
+    svgElementsContainer[0].rect = addGreyBox(svg, graphStateArray[1][1]);
     for (var i = 0; i < yValues.length; i++) {
         svgElementsContainer.push(new Object);
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -77,51 +96,51 @@ function initSvgElements(svg)
         svgElementsContainer[i].circle = circle;
         svg.appendChild(circle);
 
-        var vertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        vertical.setAttributeNS(null, "x1", xScale(svg, i));
-        vertical.setAttributeNS(null, "x2", xScale(svg, i));
-        vertical.setAttributeNS(null, "y1", yScale(svg, yValues[i]));
-        vertical.setAttributeNS(null, "y2", yScale(svg, yValues[i]));
-        vertical.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
-        svgElementsContainer[i].vertical = vertical;
-        svg.appendChild(vertical);
-
-        var horisontalTop = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        horisontalTop.setAttributeNS(null, "x1", xScale(svg, i));
-        horisontalTop.setAttributeNS(null, "x2", xScale(svg, i));
-        horisontalTop.setAttributeNS(null, "y1", yScale(svg, yValues[i] - dataMargin));
-        horisontalTop.setAttributeNS(null, "y2", yScale(svg, yValues[i] - dataMargin));
-        horisontalTop.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
-        svgElementsContainer[i].horisontalTop = horisontalTop;
-        svg.appendChild(horisontalTop);
-
-        var horisontalBot = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        horisontalBot.setAttributeNS(null, "x1", xScale(svg, i));
-        horisontalBot.setAttributeNS(null, "x2", xScale(svg, i));
-        horisontalBot.setAttributeNS(null, "y1", yScale(svg, yValues[i] + dataMargin));
-        horisontalBot.setAttributeNS(null, "y2", yScale(svg, yValues[i] + dataMargin));
-        horisontalBot.setAttributeNS(null, "style", "stroke:rgb(255,0,0);stroke-width:2");
-        svgElementsContainer[i].horisontalBot = horisontalBot;
-        svg.appendChild(horisontalBot);
+        svgElementsContainer[i].vertical = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, yValues[i]), yScale(svg, yValues[i]), "rgb(255,0,0)", "2");
+        svgElementsContainer[i].horisontalTop = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, yValues[i] - dataMargin), yScale(svg, yValues[i] - dataMargin), "rgb(255,0,0)", "2");
+        svgElementsContainer[i].horisontalBot = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, yValues[i] + dataMargin), yScale(svg, yValues[i] + dataMargin), "rgb(255,0,0)", "2");
     }
 }
 
 function initBackground(svg) {
-    var vertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    vertical.setAttributeNS(null, "x1", xScale(svg, 0, false));
-    vertical.setAttributeNS(null, "x2", xScale(svg, yValues.length, false));
-    vertical.setAttributeNS(null, "y1", yScale(svg, 0));
-    vertical.setAttributeNS(null, "y2", yScale(svg, 0));
-    vertical.setAttributeNS(null, "style", "stroke:rgb(0,0,0);stroke-width:3");
-    svg.appendChild(vertical); 
-    for (var i = 0; i < backgroundYValues.length; i++) {
-        var vertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        vertical.setAttributeNS(null, "x1", xScale(svg, 0, false));
-        vertical.setAttributeNS(null, "x2", xScale(svg, yValues.length, false));
-        vertical.setAttributeNS(null, "y1", yScale(svg, backgroundYValues[i]));
-        vertical.setAttributeNS(null, "y2", yScale(svg, backgroundYValues[i]));
-        vertical.setAttributeNS(null, "style", "stroke:rgb(150,150,150);stroke-width:2");
-        svg.appendChild(vertical); 
+    addLine(svg, xScale(svg, 0, false), xScale(svg, yValues.length, false), yScale(svg, 0), yScale(svg, 0), "rgb(0,0,0)", "2");
+    for (var i = 0; i < backgroundYValues.length; i++)
+    {
+        if (backgroundYValues[i] != 0)
+        {
+            addLine(svg, xScale(svg, 0, false), xScale(svg, yValues.length, false), yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(150, 150, 150)", "1");
+        }
+    }
+}
+
+function initLeft(svg)
+{
+    addLine(svg, svg.clientWidth, svg.clientWidth, 0, svg.scrollHeight, "rgb(0,0,0)", "3");
+    addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 3 + yAxisLetterWidth), svg.scrollHeight / 2, true, yAxisText).classList.add("yAxisText");
+    for (let i = 0; i < backgroundYValues.length; i++)
+    {
+        addLine(svg, svg.clientWidth - yAxisMarkerWidth, svg.clientWidth, yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(0,0,0)", "2");
+        var text = addText(svg, svg.clientWidth - yAxisMarkerWidth - yAxisTextPadding, yScale(svg, backgroundYValues[i]), true, backgroundYValues[i].toString());
+        text.classList.add("yAxisMarker");
+    }
+}
+
+function initBot(bot, svg)
+{
+    const marginLeft = bot.clientWidth - svg.clientWidth - 2; //2 is to make xAxis and yAxis connect
+    addLine(bot, marginLeft, bot.clientWidth, 0, 0, "rgb(0,0,0)", "2");
+    addText(
+        bot,
+        marginLeft + svg.clientWidth / 2 - xAxisText.length * xAxisLetterWidth / 2,
+        xAxisMarkerHeight + xAxisTextPadding * 3 + xAxisLetterWidth,
+        false,
+        xAxisText
+    ).classList.add("xAxisText");
+    for (let i = 0; i < xAxisDisplayIndices.length; i++)
+    {
+        addLine(bot, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft, 0, xAxisMarkerHeight, "rgb(0,0,0)", "2");
+        var text = addText(bot, xScale(svg, xAxisDisplayIndices[i], false) + marginLeft - ((xAxisDisplayFirst + i* xAxisDisplayValuePerIndex).toString().length * xAxisLetterWidth / 2), xAxisMarkerHeight + xAxisTextPadding, false, xAxisDisplayFirst + i * xAxisDisplayValuePerIndex);
+        text.classList.add("xAxisMarker");
     }
 }
 
@@ -183,7 +202,7 @@ function animateVerticalIn(vertical, svg, center)
     }
 }
 
-function animateHorisontalIn(top, bot, svg, center)
+function animateHorisontalIn(top, bot, svg, center, isFirst = false)
 {
     let time = Date.now();
     var oStop = 1000;
@@ -200,9 +219,61 @@ function animateHorisontalIn(top, bot, svg, center)
             time = Date.now();
         }
         oStop--;
-        if ((top.getAttributeNS(null, "x1") > xScale(svg, (center - horisLength / 2), true)) && (oStop > 0))
+        if ((top.getAttributeNS(null, "x1") >
+            (isFirst ?
+                graphPaddingX / 2 - xScale(svg, (center - horisLength / 2), false) :
+                xScale(svg, (center - horisLength / 2), true)))
+            && (oStop > 0))
         {
             window.requestAnimationFrame(horisontalAnimation);
         }
     }
+}
+
+function addLine(svg, x1, x2, y1, y2, colour, width)
+{
+    var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttributeNS(null, "x1", x1);
+    line.setAttributeNS(null, "x2", x2);
+    line.setAttributeNS(null, "y1", y1);
+    line.setAttributeNS(null, "y2", y2);
+    line.setAttributeNS(null, "style", "stroke:" + colour + ";stroke-width:" + width);
+    svg.appendChild(line); 
+    return line;
+}
+
+function addText(svg, x, y, rotate = false, textString)
+{
+    var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttributeNS(null, "x", x);
+    text.setAttributeNS(null, "y", y);
+    text.innerHTML = textString;
+    if (rotate)
+    {
+        text.setAttributeNS(null, "transform", "rotate(90," + (x + textString.length * yAxisLetterWidth).toString() + "," + y + ")");
+        text.setAttributeNS(null, "y", y + textString.length * yAxisLetterWidth);
+    }
+    svg.appendChild(text);
+    return text;
+}
+
+function addGreyBox(svg, toIndex)
+{
+    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttributeNS(null, "x", 0);
+    rect.setAttributeNS(null, "width", xScale(svg, toIndex, true));
+    rect.setAttributeNS(null, "y", 0);
+    rect.setAttributeNS(null, "height", svg.scrollHeight);
+    rect.setAttributeNS(null, "fill", "#dedede00");
+    svg.appendChild(rect);
+    return rect;
+}
+
+function addDashedLine(svg index)
+{
+    var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttributeNS(null, "x1", xScale(svg, index, true);
+    line.setAttributeNS(null, "x2", xScale(svg, index, true);
+    line.setAttributeNS(null, "y1", 0);
+    line
 }
