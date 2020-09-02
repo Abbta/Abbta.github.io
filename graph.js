@@ -15,10 +15,11 @@ const yAxisText = "y axis text";
 const xAxisMarkerHeight = yAxisMarkerWidth;
 const xAxisTextPadding = yAxisTextPadding;
 const xAxisLetterWidth = 7;
-const xAxisDisplayIndices = [3, 7, 11, 15, 19, 23];
+const xAxisDisplayIndices = [2, 6, 10, 14, 18, 22];
 const xAxisDisplayFirst = 24;
 const xAxisDisplayValuePerIndex = -2;
 const xAxisText = "Age at parent's layoff";
+const backgroundBoxColour = "#cdcdcd55";
 const graphStateArray = [
     [11, yValues.length - 1],
     [0, 10]
@@ -76,7 +77,7 @@ function addToGraph(svg, graphState) {
         }
         if (graphState == 1)
         {
-            svgElementsContainer[0].rect.setAttributeNS(null, "fill", "dedede00");
+            svgElementsContainer[0].rect.setAttributeNS(null, "fill", backgroundBoxColour);
         }
     }
 }
@@ -85,6 +86,7 @@ function initSvgElements(svg)
 {
     svgElementsContainer.push(new Object);
     svgElementsContainer[0].rect = addBackgroundRect(svg, graphStateArray[1][1]);
+    svgElementsContainer[0].dashed = addDashedLine(svg, 17);
     for (var i = 0; i < yValues.length; i++) {
         svgElementsContainer.push(new Object);
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -112,10 +114,10 @@ function initBackground(svg) {
 
 function initLeft(svg) {
     addLine(svg, svg.clientWidth, svg.clientWidth, 0, svg.scrollHeight, "rgb(0,0,0)", "2");
-    addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 2 + yAxisLetterWidth), svg.scrollHeight / 2, true, yAxisText).classList.add("yAxisText");
+    addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 2 + yAxisLetterWidth), svg.scrollHeight / 2, "-90", yAxisText).classList.add("yAxisText");
     for (let i = 0; i < backgroundYValues.length; i++) {
         addLine(svg, svg.clientWidth - yAxisMarkerWidth, svg.clientWidth, yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(0,0,0)", "2");
-        var text = addText(svg, svg.clientWidth - yAxisMarkerWidth - yAxisTextPadding, yScale(svg, backgroundYValues[i]), true, backgroundYValues[i].toString());
+        var text = addText(svg, svg.clientWidth - yAxisMarkerWidth - yAxisTextPadding, yScale(svg, backgroundYValues[i]), "90", backgroundYValues[i].toString());
         text.classList.add("yAxisMarker");
     }
 }
@@ -220,14 +222,21 @@ function addLine(svg, x1, x2, y1, y2, colour, width) {
     return line;
 }
 
-function addText(svg, x, y, rotate = false, textString) {
+function addText(svg, x, y, rotate = "0", textString) {
     var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     text.setAttributeNS(null, "x", x);
     text.setAttributeNS(null, "y", y);
     text.innerHTML = textString;
     if (rotate) {
-        text.setAttributeNS(null, "transform", "rotate(90," + (x + textString.length * yAxisLetterWidth).toString() + "," + y + ")");
-        text.setAttributeNS(null, "y", y + textString.length * yAxisLetterWidth);
+        text.setAttributeNS(null, "transform", "rotate(" + rotate + "," + (x + textString.length * yAxisLetterWidth).toString() + "," + y + ")");
+        if (parseInt(rotate) < 0)
+        {
+            text.setAttributeNS(null, "y", y - textString.length * yAxisLetterWidth);
+        }
+        else
+        {
+            text.setAttributeNS(null, "y", y + textString.length * yAxisLetterWidth);
+        }
     }
     svg.appendChild(text);
     return text;
@@ -240,7 +249,20 @@ function addBackgroundRect(svg, index)
     rect.setAttributeNS(null, "y", 0);
     rect.setAttributeNS(null, "width", xScale(svg, index, true));
     rect.setAttributeNS(null, "height", svg.scrollHeight);
-    rect.setAttributeNS(null, "fill", "#dedede00");
+    rect.setAttributeNS(null, "fill", backgroundBoxColour.substring(0, 7) + "00");
     svg.appendChild(rect);
     return rect;
+}
+
+function addDashedLine(svg, index)
+{
+    var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttributeNS(null, "x1", xScale(svg, index, true));
+    line.setAttributeNS(null, "x2", xScale(svg, index, true));
+    line.setAttributeNS(null, "y1", 0);
+    line.setAttributeNS(null, "y2", svg.scrollHeight);
+    line.setAttributeNS(null, "stroke", "#000000");
+    line.setAttributeNS(null, "stroke-dasharray", "5,5");
+    svg.appendChild(line);
+    return line;
 }
