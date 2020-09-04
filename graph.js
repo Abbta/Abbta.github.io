@@ -31,14 +31,26 @@ const maxFrames = 15;
 
 var g_graphState = 0;
 
-document.body.onload = function () {
+var g_file = null;
+var g_data = new Array;
+
+document.body.onload = function ()
+{
+    getCsvData();
+}
+
+function onLoad()
+{
     const svg = document.getElementById("graph");
     const left = document.getElementById("graph-left");
     const bot = document.getElementById("graph-bot");
+    console.log(g_file);
+    formatData(g_file, g_data);
+    console.log(g_data);
     initBackground(svg);
     initLeft(left);
     initBot(bot, svg);
-    initSvgElements(svg);
+    initSvgElements(svg, g_data);
     addToGraph(document.getElementById("graph"), g_graphState);
     g_graphState++;
 
@@ -56,6 +68,39 @@ document.body.onload = function () {
     }
 }
 
+function getCsvData()
+{
+    let url = window.location.href;
+    let urlArray = url.split("/");   //https://juliatanndal.com/
+    urlArray = urlArray.slice(0, 3); //https: , , juliatanndal.com
+    url = urlArray.join("/") + "/graph_data.csv"
+    let request = new XMLHttpRequest;
+    request.open("GET", url);
+    request.responseType = "text";
+    request.onload = function ()
+    {
+        g_file = request.response;
+        onLoad();
+    }
+    request.send();
+}
+
+const dataStartIndex = 1; 
+const dataYValueIndex = 1;
+const dataTopValueIndex = 2;
+const dataBotValueIndex = 3;
+function formatData(file, data)
+{
+    file = file.split("#");
+    for (let i = dataStartIndex; i < file.length; i++)
+    {
+        file[i] = file[i].split(",");
+        data.push(new Object);
+        data[i-dataStartIndex].yValue = parseFloat(file[i][dataYValueIndex]);
+        data[i-dataStartIndex].topValue = parseFloat(file[i][dataTopValueIndex]);
+        data[i-dataStartIndex].botValue = parseFloat(file[i][dataBotValueIndex]);
+    }
+}
 
 function yScale(elem, yValue) {
     var scalar = elem.scrollHeight / yDistance;
@@ -82,24 +127,24 @@ function addToGraph(svg, graphState) {
     }
 }
 
-function initSvgElements(svg)
+function initSvgElements(svg, data)
 {
     svgElementsContainer.push(new Object);
     svgElementsContainer[0].rect = addBackgroundRect(svg, graphStateArray[1][1]);
     svgElementsContainer[0].dashed = addDashedLine(svg, 17);
-    for (var i = 0; i < yValues.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         svgElementsContainer.push(new Object);
         var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         circle.setAttributeNS(null, "cx", xScale(svg, i));
-        circle.setAttributeNS(null, "cy", yScale(svg, yValues[i]));
+        circle.setAttributeNS(null, "cy", yScale(svg, data[i].yValue));
         circle.setAttributeNS(null, "r", 0);
         circle.setAttributeNS(null, "fill", "red");
         svgElementsContainer[i].circle = circle;
         svg.appendChild(circle);
 
-        svgElementsContainer[i].vertical = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, yValues[i]), yScale(svg, yValues[i]), "rgb(255,0,0)", "2");
-        svgElementsContainer[i].horisontalTop = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, yValues[i] - dataMargin), yScale(svg, yValues[i] - dataMargin), "rgb(255,0,0)", "2");
-        svgElementsContainer[i].horisontalBot = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, yValues[i] + dataMargin), yScale(svg, yValues[i] + dataMargin), "rgb(255,0,0)", "2");
+        svgElementsContainer[i].vertical = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, data[i].topValue), yScale(svg, data[i].botValue), "rgb(255,0,0)", "2");
+        svgElementsContainer[i].horisontalTop = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, data[i].topValue), yScale(svg, data[i].topValue), "rgb(255,0,0)", "2");
+        svgElementsContainer[i].horisontalBot = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, data[i].botValue), yScale(svg, data[i].botValue), "rgb(255,0,0)", "2");
     }
 }
 
