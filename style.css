@@ -217,8 +217,13 @@ a:hover{
     height: 100%;
 }
 
-.graph-middle-top {
+#graph-top {
     height: 70px;
+}
+
+.graphTitle{
+    font-family: 'Open Sans';
+    font-size: 32px;
 }
 
 .graph-middle-bot {

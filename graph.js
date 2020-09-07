@@ -19,6 +19,8 @@ const xAxisDisplayIndices = [2, 6, 10, 14, 18, 22];
 const xAxisDisplayFirst = 24;
 const xAxisDisplayValuePerIndex = -2;
 const xAxisText = "Age at parent's layoff";
+const graphTitle = "High School Graduate by age 19";
+const graphTitleLetterWidth = 11;
 const backgroundBoxColour = "#cdcdcd55";
 var svgElementsContainer = new Array;
 const animationDelay = 50;
@@ -39,12 +41,14 @@ document.body.onload = function ()
 function onLoad()
 {
     const svg = document.getElementById("graph");
+    const top = document.getElementById("graph-top");
     const left = document.getElementById("graph-left");
     const bot = document.getElementById("graph-bot");
     console.log(g_file);
     formatData(g_file, g_data);
     console.log(g_data);
     initBackground(svg);
+    initTop(top);
     initLeft(left);
     initBot(bot, svg);
     initSvgElements(svg, g_data);
@@ -156,6 +160,11 @@ function initBackground(svg) {
             addLine(svg, xScale(svg, 0, false), xScale(svg, yValues.length, false), yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(150, 150, 150)", "1");
         }
     }
+}
+
+function initTop(svg)
+{
+    addText(svg, (svg.clientWidth - graphTitleLetterWidth * graphTitle.length) / 2, svg.scrollHeight / 2, false, graphTitle).classList.add("graphTitle");
 }
 
 function initLeft(svg) {
