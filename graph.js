@@ -20,10 +20,6 @@ const xAxisDisplayFirst = 24;
 const xAxisDisplayValuePerIndex = -2;
 const xAxisText = "Age at parent's layoff";
 const backgroundBoxColour = "#cdcdcd55";
-const graphStateArray = [
-    [11, yValues.length - 1],
-    [0, 10]
-]
 var svgElementsContainer = new Array;
 const animationDelay = 50;
 const animationDuration = 300;
@@ -33,6 +29,7 @@ var g_graphState = 0;
 
 var g_file = null;
 var g_data = new Array;
+var graphStateArray;
 
 document.body.onload = function ()
 {
@@ -51,7 +48,7 @@ function onLoad()
     initLeft(left);
     initBot(bot, svg);
     initSvgElements(svg, g_data);
-    addToGraph(document.getElementById("graph"), g_graphState);
+    addToGraph(document.getElementById("graph"), g_graphState, g_data);
     g_graphState++;
 
     window.onscroll = function () {
@@ -61,7 +58,7 @@ function onLoad()
         const graph_overlay_texts = document.getElementsByClassName("graph-overlay-text");
         if (graph_overlay_texts[g_graphState - 1].offsetTop < graphHolder.offsetTop - svg.scrollHeight / 2) {
             //if text to transition between current and next state is above marker 
-            addToGraph(svg, g_graphState);
+            addToGraph(svg, g_graphState, g_data);
             g_graphState++;
         }
 
@@ -100,6 +97,10 @@ function formatData(file, data)
         data[i-dataStartIndex].topValue = parseFloat(file[i][dataTopValueIndex]);
         data[i-dataStartIndex].botValue = parseFloat(file[i][dataBotValueIndex]);
     }
+    graphStateArray = [
+        [11, data.length - 1],
+        [0, 10]
+    ]
 }
 
 function yScale(elem, yValue) {
@@ -113,11 +114,11 @@ function xScale(element, xValue, withPadding = true) {
     return Math.abs(xValue) * scalar + padding / 2;
 }
 
-function addToGraph(svg, graphState) {
+function addToGraph(svg, graphState, data) {
     if (graphState < 2) {
         for (let i = graphStateArray[graphState][0]; i <= graphStateArray[graphState][1]; i++) {
             setTimeout(animateCircleIn, animationDelay * i, svgElementsContainer[i].circle);
-            setTimeout(animateVerticalIn, animationDelay * i, svgElementsContainer[i].vertical, svg, yValues[i]);
+            setTimeout(animateVerticalIn, animationDelay * i, svgElementsContainer[i].vertical, svg, data[i]);
             setTimeout(animateHorisontalIn, animationDelay * i + animationDuration, svgElementsContainer[i].horisontalTop, svgElementsContainer[i].horisontalBot, svg, i, i == 0 ? true : false);
         }
         if (graphState == 1)
@@ -142,7 +143,7 @@ function initSvgElements(svg, data)
         svgElementsContainer[i].circle = circle;
         svg.appendChild(circle);
 
-        svgElementsContainer[i].vertical = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, data[i].topValue), yScale(svg, data[i].botValue), "rgb(255,0,0)", "2");
+        svgElementsContainer[i].vertical = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, data[i].yValue), yScale(svg, data[i].yValue), "rgb(255,0,0)", "2");
         svgElementsContainer[i].horisontalTop = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, data[i].topValue), yScale(svg, data[i].topValue), "rgb(255,0,0)", "2");
         svgElementsContainer[i].horisontalBot = addLine(svg, xScale(svg, i), xScale(svg, i), yScale(svg, data[i].botValue), yScale(svg, data[i].botValue), "rgb(255,0,0)", "2");
     }
@@ -201,20 +202,20 @@ function animateCircleIn(circle) {
     }
 }
 
-function animateVerticalIn(vertical, svg, center) {
+function animateVerticalIn(vertical, svg, data) {
     let time = Date.now();
     var oStop = 1000;
     window.requestAnimationFrame(verticalAnimation);
     function verticalAnimation() {
         let waitTo;
         let pixelsByFrame;
-        if (yScale(svg, dataMargin) < maxFrames) {
-            waitTo = time + (animationDuration / yScale(svg, dataMargin));
+        if (yScale(svg, data.botValue - data.yValue) < maxFrames) {
+            waitTo = time + (animationDuration / yScale(svg, data.botValue - data.yValue)); //assumes yValue is in the middle between top and bot
             pixelsByFrame = 1;
         }
         else {
             waitTo = time + (animationDuration / maxFrames)
-            pixelsByFrame = yScale(svg, dataMargin) / maxFrames;
+            pixelsByFrame = yScale(svg, data.botValue - data.yValue) / maxFrames;
         }
         vertical.setAttributeNS(null, "y1", parseInt(vertical.getAttributeNS(null, "y1")) - pixelsByFrame);
         vertical.setAttributeNS(null, "y2", parseInt(vertical.getAttributeNS(null, "y2")) + pixelsByFrame);
@@ -222,12 +223,12 @@ function animateVerticalIn(vertical, svg, center) {
             time = Date.now();
         }
         oStop--;
-        if ((parseInt(vertical.getAttributeNS(null, "y1")) > yScale(svg, center + dataMargin)) && (oStop > 0)) {
+        if ((parseInt(vertical.getAttributeNS(null, "y1")) > yScale(svg, data.botValue)) && (oStop > 0)) {
             window.requestAnimationFrame(verticalAnimation);
         }
         else {
-            vertical.setAttributeNS(null, "y1", yScale(svg, center + dataMargin));
-            vertical.setAttributeNS(null, "y2", yScale(svg, center - dataMargin));
+            vertical.setAttributeNS(null, "y1", yScale(svg, data.botValue));
+            vertical.setAttributeNS(null, "y2", yScale(svg, data.topValue));
         }
     }
 }
