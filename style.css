@@ -85,15 +85,14 @@ body {
 .page-button {
     padding: 3px;
     padding-right: 18px;
-    text-decoration: none;
-    font-size: 24px;
-    color: black;
     align-self: center;
 }
-
-    .page-button:hover {
-        color: gray;
-    }
+a { 
+    text-decoration: none; font-size: 24px; color: black;
+}
+a:hover{
+    color: gray; 
+}
 
 @media screen and (min-width: 920px) {
     .content {
