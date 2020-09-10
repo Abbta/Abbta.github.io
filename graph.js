@@ -172,7 +172,7 @@ function initLeft(svg) {
     addText(svg, svg.clientWidth - (yAxisMarkerWidth + yAxisTextPadding * 2 + yAxisLetterWidth), svg.scrollHeight / 2, "-90", yAxisText).classList.add("yAxisText");
     for (let i = 0; i < backgroundYValues.length; i++) {
         addLine(svg, svg.clientWidth - yAxisMarkerWidth, svg.clientWidth, yScale(svg, backgroundYValues[i]), yScale(svg, backgroundYValues[i]), "rgb(0,0,0)", "2");
-        var text = addText(svg, svg.clientWidth - yAxisMarkerWidth - yAxisTextPadding, yScale(svg, backgroundYValues[i]), "90", backgroundYValues[i].toString());
+        var text = addText(svg, svg.clientWidth - yAxisMarkerWidth - yAxisTextPadding, yScale(svg, backgroundYValues[i]), "-90", backgroundYValues[i].toString());
         text.classList.add("yAxisMarker");
     }
 }
