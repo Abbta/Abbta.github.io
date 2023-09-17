@@ -1,0 +1,54 @@
+const axios = require("axios");
+
+const TimeEdit = class {
+  constructor(baseUrl) {
+    if (baseUrl[baseUrl.length - 1] !== "/") {
+      baseUrl += "/";
+    }
+    this.baseUrl = baseUrl;
+  }
+
+  async getCourseEvents(courseId) {
+    // console.log("timeeditapi getcourse", courseId);
+    const result = await axios({
+      method: "GET",
+      url: this.baseUrl + "ri.json",
+      params: {
+        h: "f",
+        sid: 3,
+        p: "0.m,12.n",
+        objects: courseId,
+        ox: 0,
+        types: 0,
+        fe: 0,
+        h2: "f",
+        l: "en_EN"
+      }
+    }).catch(err => {
+        document.getElementById("demo").innerHTML = err.message;
+    });
+
+    // Map data in "columns" to "data" by "columnheaders"
+    result.data.reservations.forEach(rese => {
+      rese["additional_info"] = result.data.columnheaders.reduce(
+        (obj, key, index) => {
+          obj[key] = rese.columns[index];
+          return obj;
+        },
+        {}
+      );
+    });
+
+    // Return the data, not the axios object
+    return result.data;
+  }
+};
+
+function soap() {
+    const te = new TimeEdit("https://cloud.timeedit.net/uu/web/schema");
+    document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "click" ;
+    te.getCourseEvents("1FA102-H20-13054").then(results =>{
+        document.getElementById("demo").innerHTML = results.reservations;
+    })
+    document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "click" ;
+}
