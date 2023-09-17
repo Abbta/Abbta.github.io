@@ -1,5 +1,3 @@
-const axios = require("axios");
-
 const TimeEdit = class {
   constructor(baseUrl) {
     if (baseUrl[baseUrl.length - 1] !== "/") {
@@ -25,7 +23,7 @@ const TimeEdit = class {
         l: "en_EN"
       }
     }).catch(err => {
-        document.getElementById("demo").innerHTML = err.message;
+        console.log(err.message);
     });
 
     // Map data in "columns" to "data" by "columnheaders"
@@ -47,8 +45,7 @@ const TimeEdit = class {
 function soap() {
     const te = new TimeEdit("https://cloud.timeedit.net/uu/web/schema");
     document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "click" ;
-    te.getCourseEvents("1FA102-H20-13054").then(results =>{
-        document.getElementById("demo").innerHTML = results.reservations;
+    te.getCourseEvents("5434900.200").then(results =>{
+       console.log(results);
     })
-    document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "click" ;
 }
