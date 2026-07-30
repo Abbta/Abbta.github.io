@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Discover Hinser — its character, history, and contact information."
+    />
+    <title>Hinser — A House with a Story</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Libre+Caslon+Text:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="hero">
+      <div
+        class="image-placeholder image-placeholder--banner"
+        role="img"
+        aria-label="Placeholder 1 for a future banner photograph of Hinser"
+      >
+        <span>1</span>
+      </div>
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="hero__content">
+        <p class="eyebrow">A house with a story</p>
+        <h1>Hinser</h1>
+        <p class="hero__intro">A place shaped by time, people, and the land around it.</p>
+      </div>
+    </header>
+
+    <nav class="tab-bar" aria-label="Main navigation">
+      <div class="tab-bar__inner" role="tablist" aria-label="Hinser information">
+        <button
+          class="tab is-active"
+          id="tab-information"
+          role="tab"
+          type="button"
+          aria-selected="true"
+          aria-controls="information"
+          data-tab="information"
+        >
+          General information
+        </button>
+        <button
+          class="tab"
+          id="tab-history"
+          role="tab"
+          type="button"
+          aria-selected="false"
+          aria-controls="history"
+          data-tab="history"
+          tabindex="-1"
+        >
+          History
+        </button>
+        <button
+          class="tab"
+          id="tab-contact"
+          role="tab"
+          type="button"
+          aria-selected="false"
+          aria-controls="contact"
+          data-tab="contact"
+          tabindex="-1"
+        >
+          Contact
+        </button>
+      </div>
+    </nav>
+
+    <main id="main-content">
+      <section
+        class="panel is-active"
+        id="information"
+        role="tabpanel"
+        aria-labelledby="tab-information"
+      >
+        <div class="content-grid">
+          <div class="copy">
+            <p class="section-number">01 / The house</p>
+            <h2>Welcome to Hinser</h2>
+            <p class="lead">
+              Hinser is more than a house. It is a gathering place, a familiar
+              landmark, and a home with its own quiet character.
+            </p>
+            <p>
+              This page is a starting point for sharing practical information
+              about the house and its surroundings. Add details here about its
+              location, architecture, rooms, garden, or the things that make
+              Hinser special.
+            </p>
+            <dl class="facts">
+              <div>
+                <dt>Location</dt>
+                <dd>Add location</dd>
+              </div>
+              <div>
+                <dt>Built</dt>
+                <dd>Add year</dd>
+              </div>
+              <div>
+                <dt>Known for</dt>
+                <dd>Add a defining detail</dd>
+              </div>
+            </dl>
+          </div>
+          <div
+            class="image-placeholder image-placeholder--square"
+            role="img"
+            aria-label="Placeholder 2 for a future photograph"
+          >
+            <span>2</span>
+          </div>
+        </div>
+
+        <div class="gallery" aria-label="Future photo gallery">
+          <div
+            class="image-placeholder image-placeholder--square"
+            role="img"
+            aria-label="Placeholder 3 for a future photograph"
+          >
+            <span>3</span>
+          </div>
+          <div
+            class="image-placeholder image-placeholder--square"
+            role="img"
+            aria-label="Placeholder 4 for a future photograph"
+          >
+            <span>4</span>
+          </div>
+          <div
+            class="image-placeholder image-placeholder--square"
+            role="img"
+            aria-label="Placeholder 5 for a future photograph"
+          >
+            <span>5</span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="panel"
+        id="history"
+        role="tabpanel"
+        aria-labelledby="tab-history"
+        hidden
+      >
+        <div class="content-grid content-grid--history">
+          <div class="copy">
+            <p class="section-number">02 / Through the years</p>
+            <h2>The story of Hinser</h2>
+            <p class="lead">
+              Every old house holds layers of memory. This is where Hinser’s
+              story can unfold, one chapter at a time.
+            </p>
+            <p>
+              Add the known history of the property here: when it was built,
+              who lived here, how the house changed, and the stories that have
+              been passed down. The timeline offers a simple structure for
+              important dates.
+            </p>
+          </div>
+
+          <div class="timeline" aria-label="History timeline">
+            <article class="timeline__item">
+              <p class="timeline__date">Year</p>
+              <h3>The beginning</h3>
+              <p>Add the earliest known chapter in Hinser’s history.</p>
+            </article>
+            <article class="timeline__item">
+              <p class="timeline__date">Year</p>
+              <h3>A new chapter</h3>
+              <p>Add an important change, renovation, or family story.</p>
+            </article>
+            <article class="timeline__item">
+              <p class="timeline__date">Today</p>
+              <h3>Hinser now</h3>
+              <p>Describe the house as it is known and used today.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="history-image">
+          <div
+            class="image-placeholder image-placeholder--landscape"
+            role="img"
+            aria-label="Placeholder 6 for a future historical photograph"
+          >
+            <span>6</span>
+          </div>
+          <p class="caption">A future archival photograph and caption can go here.</p>
+        </div>
+      </section>
+
+      <section
+        class="panel"
+        id="contact"
+        role="tabpanel"
+        aria-labelledby="tab-contact"
+        hidden
+      >
+        <div class="contact-layout">
+          <div class="copy">
+            <p class="section-number">03 / Get in touch</p>
+            <h2>Contact</h2>
+            <p class="lead">
+              Have a question about Hinser, or a story that belongs in its
+              history? We would be glad to hear from you.
+            </p>
+          </div>
+
+          <address class="contact-card">
+            <div class="contact-card__row">
+              <span class="contact-card__label">Email</span>
+              <a href="mailto:your-email@example.com">your-email@example.com</a>
+            </div>
+            <div class="contact-card__row">
+              <span class="contact-card__label">Phone</span>
+              <a href="tel:+46000000000">+46 00 000 00 00</a>
+            </div>
+            <div class="contact-card__row">
+              <span class="contact-card__label">Address</span>
+              <span>Add street and town</span>
+            </div>
+            <p class="contact-card__note">
+              Replace these example details before sharing the site.
+            </p>
+          </address>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Hinser</p>
+      <p>&copy; <span id="current-year"></span> Hinser</p>
+    </footer>
+  </body>
+</html>
