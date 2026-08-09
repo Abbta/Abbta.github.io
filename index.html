@@ -28,11 +28,11 @@
       />
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="hero__content">
-        <p class="eyebrow">Ett hus med en historia</p>
+        <p class="eyebrow">En genuin gotländsk kalkstensgård med historia – Gotland</p>
         <h1>Hinser</h1>
         <p class="hero__address">Gothem Medebys 376</p>
         <p class="hero__intro">
-          En plats präglad av tiden, människorna och landskapet omkring.
+          En plats präglad av tiden, människorna och landskapet.
         </p>
       </div>
     </header>
@@ -60,7 +60,7 @@
           data-tab="history"
           tabindex="-1"
         >
-          Historia
+          Upptäck
         </button>
         <button
           class="tab"
@@ -85,6 +85,34 @@
           tabindex="-1"
         >
           Kontakt
+        </button>
+      </div>
+    </nav>
+
+    <nav class="discover-menu" id="discover-menu" aria-label="Upptäck Hinser" hidden>
+      <div class="discover-menu__inner">
+        <button class="discover-tab is-active" type="button" data-discover="story" aria-pressed="true">
+          Hinsers historia
+        </button>
+        <button class="discover-tab" type="button" data-discover="projects" aria-pressed="false">
+          Pågående projekt
+        </button>
+        <button class="discover-tab" type="button" data-discover="nearby" aria-pressed="false">
+          Att göra i närområdet
+        </button>
+      </div>
+    </nav>
+
+    <nav class="discover-menu" id="rental-menu" aria-label="Hyra Hinser" hidden>
+      <div class="discover-menu__inner">
+        <button class="discover-tab rental-tab is-active" type="button" data-rental="overview" aria-pressed="true">
+          Om boendet
+        </button>
+        <button class="discover-tab rental-tab" type="button" data-rental="gallery" aria-pressed="false">
+          Bildgalleri
+        </button>
+        <button class="discover-tab rental-tab" type="button" data-rental="booking" aria-pressed="false">
+          Pris &amp; bokning
         </button>
       </div>
     </nav>
@@ -165,36 +193,44 @@
         aria-labelledby="tab-rental"
         hidden
       >
-        <div class="content-grid">
+        <div class="rental-section" data-rental-panel="overview">
+          <div class="content-grid">
           <div class="copy">
             <p class="section-number">03 / Bo på Hinser</p>
-            <h2>Hyra Hinser</h2>
+            <h2>Om boendet</h2>
             <p class="lead">
               Här kan du samla all information för den som vill hyra Hinser
               och uppleva huset och dess omgivningar på plats.
             </p>
             <p>
               Lägg till information om vad som ingår, hur många gäster huset
-              rymmer, tillgängliga datum och hur en bokningsförfrågan görs.
+              rymmer och vad som gör en vistelse på Hinser speciell.
             </p>
             <dl class="facts">
               <div>
-                <dt>Tillgänglighet</dt>
-                <dd>Lägg till datum</dd>
+                <dt>Gäster</dt>
+                <dd>Lägg till antal</dd>
               </div>
               <div>
-                <dt>Minsta vistelse</dt>
-                <dd>Lägg till antal nätter</dd>
+                <dt>Sovrum</dt>
+                <dd>Lägg till antal</dd>
               </div>
               <div>
-                <dt>Pris</dt>
-                <dd>Lägg till pris</dd>
+                <dt>Bekvämligheter</dt>
+                <dd>Lägg till information</dd>
               </div>
             </dl>
           </div>
+          </div>
         </div>
 
-        <div class="rental-gallery" aria-label="Bildgalleri för boendet">
+        <div class="rental-section" data-rental-panel="gallery" hidden>
+          <div class="copy rental-section__intro">
+            <p class="section-number">03 / Bilder</p>
+            <h2>Bildgalleri</h2>
+            <p class="lead">Upptäck huset, rummen och omgivningarna.</p>
+          </div>
+          <div class="rental-gallery" aria-label="Bildgalleri för boendet">
           <figure class="gallery-item">
             <button class="gallery-button" type="button" aria-label="Visa bild 1 i större format">
               <div
@@ -315,6 +351,32 @@
             </button>
             <figcaption class="caption">Lägg till bildtext</figcaption>
           </figure>
+          </div>
+        </div>
+
+        <div class="rental-section" data-rental-panel="booking" hidden>
+          <div class="copy">
+            <p class="section-number">03 / Boka</p>
+            <h2>Pris &amp; bokning</h2>
+            <p class="lead">
+              Här hittar du tillgängliga datum, priser och information om hur
+              du skickar en bokningsförfrågan.
+            </p>
+            <dl class="facts">
+              <div>
+                <dt>Tillgänglighet</dt>
+                <dd>Lägg till datum</dd>
+              </div>
+              <div>
+                <dt>Minsta vistelse</dt>
+                <dd>Lägg till antal nätter</dd>
+              </div>
+              <div>
+                <dt>Pris</dt>
+                <dd>Lägg till pris</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </section>
 
@@ -327,34 +389,42 @@
       >
         <div class="content-grid content-grid--history">
           <div class="copy">
-            <p class="section-number">02 / Genom åren</p>
-            <h2>Hinsers historia</h2>
+            <p class="section-number">02 / Upptäck</p>
+            <h2>Upptäck Hinser</h2>
             <p class="lead">
-              Varje gammalt hus bär på lager av minnen. Här kan Hinsers
-              berättelse få växa fram, ett kapitel i taget.
+              Lär känna Hinser – från husets historia till det som händer här
+              i dag och allt som finns att upptäcka i närheten.
             </p>
             <p>
-              Lägg in fastighetens kända historia här: när den byggdes, vilka
-              som bodde här, hur huset förändrades och berättelser som gått i
-              arv. Tidslinjen ger en enkel struktur åt viktiga årtal.
+              Här samlar vi berättelser, aktuella projekt och tips för dig som
+              vill utforska Hinser och närområdet.
             </p>
           </div>
 
-          <div class="timeline" aria-label="Historisk tidslinje">
-            <article class="timeline__item">
-              <p class="timeline__date">Årtal</p>
-              <h3>Begynnelsen</h3>
-              <p>Lägg till det tidigaste kända kapitlet i Hinsers historia.</p>
+          <div class="timeline discover-sections" aria-live="polite">
+            <article class="timeline__item discover-section" data-discover-panel="story">
+              <p class="timeline__date">Då</p>
+              <h3>Hinsers historia</h3>
+              <p>
+                Berätta när huset byggdes, vilka som har bott här och hur
+                Hinser har förändrats genom åren.
+              </p>
             </article>
-            <article class="timeline__item">
-              <p class="timeline__date">Årtal</p>
-              <h3>Ett nytt kapitel</h3>
-              <p>Beskriv en viktig förändring, renovering eller familjeberättelse.</p>
+            <article class="timeline__item discover-section" data-discover-panel="projects" hidden>
+              <p class="timeline__date">Nu</p>
+              <h3>Pågående projekt</h3>
+              <p>
+                Följ renoveringar, förbättringar och andra projekt som är på
+                gång på Hinser.
+              </p>
             </article>
-            <article class="timeline__item">
-              <p class="timeline__date">I dag</p>
-              <h3>Hinser i dag</h3>
-              <p>Beskriv huset så som det är känt och används i dag.</p>
+            <article class="timeline__item discover-section" data-discover-panel="nearby" hidden>
+              <p class="timeline__date">I närheten</p>
+              <h3>Att göra i närområdet</h3>
+              <p>
+                Samla tips om utflykter, bad, natur, mat och andra upplevelser
+                i närheten.
+              </p>
             </article>
           </div>
         </div>
@@ -363,12 +433,12 @@
           <div
             class="image-placeholder image-placeholder--landscape"
             role="img"
-            aria-label="Bildplats 6 för ett framtida historiskt fotografi"
+            aria-label="Bildplats 6 för ett framtida fotografi"
           >
             <span>6</span>
           </div>
           <p class="caption">
-            Här kan ett framtida arkivfotografi med bildtext placeras.
+            Här kan du lägga till en bild med en kort beskrivning.
           </p>
         </div>
       </section>
@@ -385,19 +455,20 @@
             <p class="section-number">04 / Hör av dig</p>
             <h2>Kontakt</h2>
             <p class="lead">
-              Har du en fråga om Hinser eller en berättelse som hör hemma i
-              dess historia? Vi hör gärna från dig.
+              Har du frågor eller funderingar om Hinser, boendet eller en
+              framtida vistelse? Du är varmt välkommen att höra av dig – jag
+              svarar så snart jag kan.
             </p>
           </div>
 
           <address class="contact-card">
             <div class="contact-card__row">
               <span class="contact-card__label">E-post</span>
-              <a href="mailto:din-epost@exempel.se">din-epost@exempel.se</a>
+              <a href="mailto:jessica.tanndal@gmail.com">jessica.tanndal@gmail.com</a>
             </div>
             <div class="contact-card__row">
               <span class="contact-card__label">Telefon</span>
-              <a href="tel:+46000000000">+46 00 000 00 00</a>
+              <a href="tel:+46722484304">+46 72 248 43 04</a>
             </div>
             <div class="contact-card__row">
               <span class="contact-card__label">Adress</span>

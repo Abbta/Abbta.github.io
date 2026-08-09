@@ -76,6 +76,7 @@ a {
   border: 5px solid var(--red);
   object-fit: cover;
   object-position: center 58%;
+  transform: scaleX(-1);
 }
 
 .hero__shade {
@@ -89,7 +90,7 @@ a {
 }
 
 .hero__content {
-  align-self: end;
+  align-self: start;
   width: min(100% - 3rem, 75rem);
   margin: 0 auto;
   padding: clamp(3.5rem, 9vw, 7rem) 0;
@@ -130,7 +131,7 @@ h3 {
 h1 {
   max-width: 9ch;
   margin-bottom: 0.7rem;
-  font-size: clamp(4rem, 12vw, 8.5rem);
+  font-size: clamp(3.5rem, 10vw, 7.25rem);
   letter-spacing: -0.045em;
 }
 
@@ -228,6 +229,52 @@ h3 {
 
 .tab.is-active::after {
   transform: scaleX(1);
+}
+
+.discover-menu {
+  position: sticky;
+  z-index: 9;
+  top: 4.5rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-light);
+}
+
+.discover-menu[hidden] {
+  display: none;
+}
+
+.discover-menu__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+}
+
+.discover-tab {
+  min-height: 4rem;
+  padding: 0.75rem 1rem;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font: 600 0.78rem/1.25 var(--sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.discover-tab + .discover-tab {
+  border-left: 1px solid var(--line);
+}
+
+.discover-tab:hover,
+.discover-tab.is-active {
+  color: white;
+  background: var(--navy);
+}
+
+.discover-tab:focus-visible {
+  position: relative;
+  outline: 3px solid var(--red-dark);
+  outline-offset: -4px;
 }
 
 main {
@@ -409,6 +456,14 @@ main {
   position: relative;
   padding: 1.7rem 0 1.5rem 2rem;
   border-bottom: 1px solid var(--line);
+}
+
+.rental-section[hidden] {
+  display: none;
+}
+
+.rental-section__intro {
+  margin-bottom: 2.5rem;
 }
 
 .timeline__item::before {
@@ -628,6 +683,17 @@ footer p:first-child {
     padding-inline: 0.45rem;
     font-size: 0.67rem;
     letter-spacing: 0.045em;
+  }
+
+  .discover-menu {
+    top: 4.25rem;
+  }
+
+  .discover-tab {
+    min-height: 4.25rem;
+    padding-inline: 0.4rem;
+    font-size: 0.63rem;
+    letter-spacing: 0.025em;
   }
 
   .content-grid,

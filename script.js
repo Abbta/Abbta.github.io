@@ -1,5 +1,11 @@
 const tabs = [...document.querySelectorAll('[role="tab"]')];
 const panels = [...document.querySelectorAll('[role="tabpanel"]')];
+const discoverMenu = document.querySelector("#discover-menu");
+const discoverTabs = [...discoverMenu.querySelectorAll(".discover-tab")];
+const discoverPanels = [...document.querySelectorAll("[data-discover-panel]")];
+const rentalMenu = document.querySelector("#rental-menu");
+const rentalTabs = [...rentalMenu.querySelectorAll(".rental-tab")];
+const rentalPanels = [...document.querySelectorAll("[data-rental-panel]")];
 
 function activateTab(tab, updateHash = true) {
   const panelId = tab.dataset.tab;
@@ -16,6 +22,9 @@ function activateTab(tab, updateHash = true) {
     panel.classList.toggle("is-active", isActive);
     panel.hidden = !isActive;
   });
+
+  discoverMenu.hidden = panelId !== "history";
+  rentalMenu.hidden = panelId !== "rental";
 
   if (updateHash) {
     history.replaceState(null, "", `#view-${panelId}`);
@@ -43,6 +52,38 @@ tabs.forEach((tab, index) => {
     event.preventDefault();
     activateTab(tabs[nextIndex]);
     tabs[nextIndex].focus();
+  });
+});
+
+discoverTabs.forEach((button) => {
+  button.addEventListener("click", () => {
+    const selectedSection = button.dataset.discover;
+
+    discoverTabs.forEach((item) => {
+      const isActive = item === button;
+      item.classList.toggle("is-active", isActive);
+      item.setAttribute("aria-pressed", String(isActive));
+    });
+
+    discoverPanels.forEach((panel) => {
+      panel.hidden = panel.dataset.discoverPanel !== selectedSection;
+    });
+  });
+});
+
+rentalTabs.forEach((button) => {
+  button.addEventListener("click", () => {
+    const selectedSection = button.dataset.rental;
+
+    rentalTabs.forEach((item) => {
+      const isActive = item === button;
+      item.classList.toggle("is-active", isActive);
+      item.setAttribute("aria-pressed", String(isActive));
+    });
+
+    rentalPanels.forEach((panel) => {
+      panel.hidden = panel.dataset.rentalPanel !== selectedSection;
+    });
   });
 });
 
