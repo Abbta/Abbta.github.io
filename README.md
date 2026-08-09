@@ -1,18 +1,19 @@
 # Hinser
 
-A simple static website for Hinser, designed for GitHub Pages.
+En enkel statisk webbplats för Hinser, skapad för GitHub Pages.
 
-## Preview locally
+## Förhandsgranska lokalt
 
-Open `index.html` in a browser. No build step or dependencies are required.
+Öppna `index.html` i en webbläsare. Inget byggsteg eller några beroenden krävs.
 
-## Customize
+## Anpassa
 
-- Replace the example copy and contact details in `index.html`.
-- Replace numbered image placeholder elements when photographs are ready.
-- Colors, typography, spacing, and responsive styles are in `styles.css`.
+- Byt ut exempeltexterna och kontaktuppgifterna i `index.html`.
+- Ersätt de numrerade bildplatserna när fotografierna är klara.
+- Färger, typografi, avstånd och responsiva stilar finns i `styles.css`.
 
-## Publish
+## Publicera
 
-Push the files to the default branch of `Abbta/Abbta.github.io`, then configure
-GitHub Pages to deploy from the repository branch if it is not already enabled.
+Skicka filerna till standardgrenen i `Abbta/Abbta.github.io`. Ställ sedan in
+GitHub Pages så att webbplatsen publiceras från grenen, om det inte redan är
+aktiverat.
