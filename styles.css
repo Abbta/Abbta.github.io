@@ -3,8 +3,8 @@
   --paper-light: #fbf8f1;
   --ink: #22241e;
   --muted: #65665d;
-  --navy: #24364f;
-  --navy-light: #365777;
+  --navy: #78909c;
+  --navy-light: #9aadb7;
   --red: #a53d36;
   --red-dark: #812c28;
   --line: #d8d0c0;
@@ -63,10 +63,19 @@ a {
   background: var(--navy);
 }
 
-.hero .image-placeholder {
+.hero .image-placeholder,
+.hero__image {
   position: absolute;
   inset: 1rem;
   z-index: -2;
+}
+
+.hero__image {
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  border: 5px solid var(--red);
+  object-fit: cover;
+  object-position: center 58%;
 }
 
 .hero__shade {
@@ -74,8 +83,8 @@ a {
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(18, 31, 22, 0.86) 0%, rgba(18, 31, 22, 0.45) 52%, rgba(18, 31, 22, 0.18) 100%),
-    linear-gradient(0deg, rgba(18, 31, 22, 0.35), transparent 48%);
+    linear-gradient(90deg, rgba(40, 54, 61, 0.86) 0%, rgba(40, 54, 61, 0.45) 52%, rgba(40, 54, 61, 0.18) 100%),
+    linear-gradient(0deg, rgba(40, 54, 61, 0.35), transparent 48%);
   pointer-events: none;
 }
 
@@ -323,7 +332,7 @@ main {
 
 .hero .image-placeholder span {
   color: #f4d2c9;
-  background: rgba(35, 55, 42, 0.8);
+  background: rgba(65, 82, 91, 0.8);
 }
 
 .image-placeholder--square {
@@ -484,11 +493,11 @@ main {
   padding: 0;
   border: 0;
   color: white;
-  background: rgba(13, 22, 16, 0.96);
+  background: rgba(25, 34, 39, 0.96);
 }
 
 .lightbox::backdrop {
-  background: rgba(13, 22, 16, 0.88);
+  background: rgba(25, 34, 39, 0.88);
 }
 
 .lightbox__inner {
@@ -559,7 +568,7 @@ footer {
   gap: 2rem;
   padding: 2.25rem max(1.5rem, calc((100% - 75rem) / 2));
   color: rgba(255, 255, 255, 0.65);
-  background: #182536;
+  background: #5e727d;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -599,8 +608,14 @@ footer p:first-child {
     min-height: 31rem;
   }
 
-  .hero .image-placeholder {
+  .hero .image-placeholder,
+  .hero__image {
     inset: 0.65rem;
+  }
+
+  .hero__image {
+    width: calc(100% - 1.3rem);
+    height: calc(100% - 1.3rem);
   }
 
   .hero__content,
