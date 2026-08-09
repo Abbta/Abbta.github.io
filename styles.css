@@ -3,8 +3,8 @@
   --paper-light: #fbf8f1;
   --ink: #22241e;
   --muted: #65665d;
-  --forest: #24382b;
-  --forest-light: #36513d;
+  --navy: #24364f;
+  --navy-light: #365777;
   --red: #a53d36;
   --red-dark: #812c28;
   --line: #d8d0c0;
@@ -60,7 +60,7 @@ a {
   min-height: clamp(25rem, 62vw, 43rem);
   overflow: hidden;
   isolation: isolate;
-  background: var(--forest);
+  background: var(--navy);
 }
 
 .hero .image-placeholder {
@@ -160,7 +160,7 @@ h3 {
   top: 0;
   width: 100%;
   border-bottom: 1px solid rgba(255, 255, 255, 0.13);
-  background: var(--forest);
+  background: var(--navy);
 }
 
 .tab-bar__inner {
@@ -443,7 +443,7 @@ main {
 .contact-card {
   padding: clamp(1.5rem, 4vw, 2.75rem);
   color: white;
-  background: var(--forest);
+  background: var(--navy);
   font-style: normal;
 }
 
@@ -559,7 +559,7 @@ footer {
   gap: 2rem;
   padding: 2.25rem max(1.5rem, calc((100% - 75rem) / 2));
   color: rgba(255, 255, 255, 0.65);
-  background: #18251c;
+  background: #182536;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
