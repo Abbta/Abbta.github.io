@@ -55,3 +55,40 @@ if (requestedTab) {
 }
 
 document.querySelector("#current-year").textContent = new Date().getFullYear();
+
+const lightbox = document.querySelector("#image-lightbox");
+const lightboxMedia = lightbox.querySelector(".lightbox__media");
+const lightboxCaption = lightbox.querySelector(".lightbox__caption");
+const lightboxClose = lightbox.querySelector(".lightbox__close");
+const galleryButtons = [...document.querySelectorAll(".gallery-button")];
+let lastGalleryButton;
+
+galleryButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const visual = button.querySelector(".image-placeholder, img");
+    const caption = button.closest("figure").querySelector("figcaption");
+
+    if (!visual) return;
+
+    const enlargedVisual = visual.cloneNode(true);
+    enlargedVisual.classList.add("lightbox__image");
+    enlargedVisual.setAttribute("aria-hidden", "true");
+    lightboxMedia.replaceChildren(enlargedVisual);
+    lightboxCaption.textContent = caption?.textContent ?? "";
+    lastGalleryButton = button;
+    lightbox.showModal();
+  });
+});
+
+lightboxClose.addEventListener("click", () => lightbox.close());
+
+lightbox.addEventListener("click", (event) => {
+  const clickedOutsideImage =
+    event.target === lightbox ||
+    event.target === lightbox.querySelector(".lightbox__inner") ||
+    event.target === lightboxMedia;
+
+  if (clickedOutsideImage) lightbox.close();
+});
+
+lightbox.addEventListener("close", () => lastGalleryButton?.focus());

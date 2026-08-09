@@ -32,6 +32,7 @@
       <div class="hero__content">
         <p class="eyebrow">Ett hus med en historia</p>
         <h1>Hinser</h1>
+        <p class="hero__address">Gothem Medebys 376</p>
         <p class="hero__intro">
           En plats präglad av tiden, människorna och landskapet omkring.
         </p>
@@ -49,7 +50,7 @@
           aria-controls="information"
           data-tab="information"
         >
-          Allmän information
+          Välkommen
         </button>
         <button
           class="tab"
@@ -62,6 +63,18 @@
           tabindex="-1"
         >
           Historia
+        </button>
+        <button
+          class="tab"
+          id="tab-rental"
+          role="tab"
+          type="button"
+          aria-selected="false"
+          aria-controls="rental"
+          data-tab="rental"
+          tabindex="-1"
+        >
+          Hyra
         </button>
         <button
           class="tab"
@@ -85,7 +98,7 @@
         role="tabpanel"
         aria-labelledby="tab-information"
       >
-        <div class="content-grid">
+        <div class="rental-intro">
           <div class="copy">
             <p class="section-number">01 / Huset</p>
             <h2>Välkommen till Hinser</h2>
@@ -144,6 +157,166 @@
           >
             <span>5</span>
           </div>
+        </div>
+      </section>
+
+      <section
+        class="panel"
+        id="rental"
+        role="tabpanel"
+        aria-labelledby="tab-rental"
+        hidden
+      >
+        <div class="content-grid">
+          <div class="copy">
+            <p class="section-number">03 / Bo på Hinser</p>
+            <h2>Hyra Hinser</h2>
+            <p class="lead">
+              Här kan du samla all information för den som vill hyra Hinser
+              och uppleva huset och dess omgivningar på plats.
+            </p>
+            <p>
+              Lägg till information om vad som ingår, hur många gäster huset
+              rymmer, tillgängliga datum och hur en bokningsförfrågan görs.
+            </p>
+            <dl class="facts">
+              <div>
+                <dt>Tillgänglighet</dt>
+                <dd>Lägg till datum</dd>
+              </div>
+              <div>
+                <dt>Minsta vistelse</dt>
+                <dd>Lägg till antal nätter</dd>
+              </div>
+              <div>
+                <dt>Pris</dt>
+                <dd>Lägg till pris</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="rental-gallery" aria-label="Bildgalleri för boendet">
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 1 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 7 för ett framtida fotografi av boendet"
+              >
+                <span>7</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 2 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 8 för ett framtida fotografi av boendet"
+              >
+                <span>8</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 3 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 9 för ett framtida fotografi av boendet"
+              >
+                <span>9</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 4 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 10 för ett framtida fotografi av boendet"
+              >
+                <span>10</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 5 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 11 för ett framtida fotografi av boendet"
+              >
+                <span>11</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 6 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 12 för ett framtida fotografi av boendet"
+              >
+                <span>12</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 7 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 13 för ett framtida fotografi av boendet"
+              >
+                <span>13</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 8 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 14 för ett framtida fotografi av boendet"
+              >
+                <span>14</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 9 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 15 för ett framtida fotografi av boendet"
+              >
+                <span>15</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" aria-label="Visa bild 10 i större format">
+              <div
+                class="image-placeholder image-placeholder--square"
+                role="img"
+                aria-label="Bildplats 16 för ett framtida fotografi av boendet"
+              >
+                <span>16</span>
+              </div>
+            </button>
+            <figcaption class="caption">Lägg till bildtext</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -211,7 +384,7 @@
       >
         <div class="contact-layout">
           <div class="copy">
-            <p class="section-number">03 / Hör av dig</p>
+            <p class="section-number">04 / Hör av dig</p>
             <h2>Kontakt</h2>
             <p class="lead">
               Har du en fråga om Hinser eller en berättelse som hör hemma i
@@ -238,6 +411,16 @@
           </address>
         </div>
       </section>
+
+      <dialog class="lightbox" id="image-lightbox" aria-label="Förstorad bild">
+        <div class="lightbox__inner">
+          <button class="lightbox__close" type="button" aria-label="Stäng bildvisaren">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="lightbox__media"></div>
+          <p class="lightbox__caption"></p>
+        </div>
+      </dialog>
     </main>
 
     <footer>
